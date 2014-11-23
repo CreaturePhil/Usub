@@ -313,6 +313,10 @@ module.exports = {
     }
   },
 
+  subscriptions: function(req, res) {
+    res.render('user/subscriptions', { title: 'Subscriptions' });
+  },
+
   profile: function(req, res, next) {
     User.findOne({ uid: req.params.user.toLowerCase() }, function(err, user) {
       if (err || !user) return next(err);

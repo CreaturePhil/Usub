@@ -46,6 +46,9 @@ router.route('/settings/delete')
   .get(login_required, userController.deleteAccount.get)
   .post(login_required, userController.deleteAccount.post);
 
+router.route('/subscriptions')
+  .get(login_required, userController.subscriptions);
+
 resource('/api/users', apiUsersController, router);
 
 router.route('/:user')

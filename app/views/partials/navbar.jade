@@ -23,13 +23,16 @@
           li.dropdown
             a.dropdown-toggle(href='#', data-toggle='dropdown' data-no-instant)
               img(src='#{user.profile.avatar || user.gravatar(60)}' alt="Profile Pic")
-              | #{user.username || user.email || user.id}&nbsp;
               i.caret
             ul.dropdown-menu
               li
                 a(href='/#{user.uid}')
                   span.fa.fa-user
                   | &nbsp;Profile
+              li
+                a(href='/subscriptions')
+                  span.fa.fa-cogs
+                  | &nbsp;Manage subscriptions
               li
                 a(href='/settings/account')
                   span.fa.fa-cogs

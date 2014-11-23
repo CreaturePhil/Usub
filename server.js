@@ -4,6 +4,7 @@ var morgan = require('morgan');
 var errorhandler = require('errorhandler');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var methodOverride = require('method-override');
 var session = require('express-session');
 var MongoStore = require('connect-mongo')({ session: session });
 var expressValidator = require('express-validator');
@@ -48,6 +49,7 @@ if (app.get('env') === 'development') {
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(methodOverride());
 app.use(expressValidator({ customValidators: validators }));
 app.use(cookieParser());
 app.use(session({

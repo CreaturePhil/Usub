@@ -25,6 +25,7 @@
     "hashids": "^1.0.1",
     "jade": "^1.7.0",
     "lusca": "^1.0.2",
+    "method-override": "^2.3.0",
     "moment": "^2.8.3",
     "mongoose": "^3.8.18",
     "morgan": "^1.4.1",
