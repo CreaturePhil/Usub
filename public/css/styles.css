@@ -8,3 +8,8 @@
   width: 10em;
   height: auto;
 }
+
+.highlight {
+  background: #FFDC00;
+  transition: opacity 500 ease-in-out;
+}

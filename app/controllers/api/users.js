@@ -35,11 +35,21 @@ module.exports = {
 
   update: function(req, res, next) {
     var query = hashids.decodeHex(req.params.id);
-    var push = { $push: {'subscriptions': req.body.addSub} };
-    User.findByIdAndUpdate(query, push, function(err) {
-      if (err) return next(err);
-      res.json({ success: 'Succesfully added ' + req.body.addSub + ' to subscriptions.' });
-    });
+    if (req.body.addSub) {
+      var push = { $push: {'subscriptions': req.body.addSub} };
+      User.findByIdAndUpdate(query, push, function(err) {
+        if (err) return next(err);
+        res.json({ success: 'Succesfully added ' + req.body.addSub + ' to subscriptions.' });
+      });
+    }
+
+    if (req.body.removeSub) {
+      var pull = { $pull: {'subscriptions': req.body.removeSub} };
+      User.findByIdAndUpdate(query, pull, function(err) {
+        if (err) return next(err);
+        res.json({ success: 'Succesfully removed ' + req.body.removeSub + ' from subscriptions.' });
+      });
+    }
   }
 
 };

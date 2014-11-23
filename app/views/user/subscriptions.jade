@@ -2,6 +2,9 @@ extends ../layout
 
 block content
   #subscriptions
-    input#searchSub(type="text")
-    button#addSub(data-id=user.getHash()) Add
+    form#addSub(action="/api/users/#{user.getHash()}" method="put" data-id="#{user.getHash()}")
+      input(type="hidden" name="_csrf" value=_csrf)
+      .form-group
+        input#searchSub(type="text")
+        button(type="submit") Add
     ul#subsList

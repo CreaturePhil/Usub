@@ -17,10 +17,11 @@ html(lang="en-us")
     if env === 'development'
       link(rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css")
       link(rel="stylesheet" href="/bower_components/fontawesome/css/font-awesome.min.css")
+      link(rel="stylesheet" href="/bower_components/bootstrap-notify/css/bootstrap-notify.css")
       link(rel="stylesheet" href="/css/styles.css")
 
     if env === 'production'
-      link(rel="stylesheet" href="/css/main.min.css")
+      link(rel="stylesheet" href="/assets/css/main.min.css")
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -34,15 +35,18 @@ html(lang="en-us")
 
     .container
       include partials/flash
+      include partials/notify
       block content
 
     script(src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js" data-no-instant)
     if env === 'development'
       script(src="/bower_components/bootstrap/dist/js/bootstrap.min.js" data-no-instant)
+      script(src="/bower_components/bootstrap-notify/js/bootstrap-notify.js" data-no-instant)
       script(src="/bower_components/instantclick/instantclick.js" data-no-instant)
+      script(src="/js/settings.js")
+      script(src="/js/subscriptions.js")
       script(src="/js/scripts.js" data-no-instant)
 
     if env === 'production'
-      script(src="/js/main.min.js" data-no-instant)
-
-
+      script(src="/assets/js/main.min.js" data-no-instant)
+      script(src="/assets/js/scripts.min.js")

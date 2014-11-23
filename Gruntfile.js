@@ -3,7 +3,7 @@ module.exports = function(grunt) {
   grunt.initConfig({
 
     jshint: {
-      files: ['*.js', 'app/**/*.js', 'config/*.js', 'test/*.js', 'public/js/scripts.js'],
+      files: ['*.js', 'app/**/*.js', 'config/*.js', 'test/*.js', 'public/js/*.js'],
       options: {
         jshintrc: true
       }
@@ -12,17 +12,20 @@ module.exports = function(grunt) {
     concat: {
       js: {
         files: {
-          'public/js/main.js': [ 
+          'public/assets/js/main.js': [ 
             'public/bower_components/bootstrap/dist/js/bootstrap.js',
+            'public/bower_components/bootstrap-notify/js/bootstrap-notify.js',
             'public/bower_components/instantclick/instantclick.js',
-            'public/js/scripts.js']
+            'public/js/scripts.js'],
+          'public/assets/js/scripts.js': 'public/js/*.js'
         }
       },
       css: {
         files: {
-          'public/css/main.css': [
-            'public/bower_components/bootstrap/dist/css/bootstrap.css', 
-            'public/bower_components/fontawesome/css/font-awesome.css', 
+          'public/assets/css/main.css': [
+            'public/bower_components/bootstrap/dist/css/bootstrap.css',
+            'public/bower_components/bootstrap-notify/css/bootstrap-notify.css',
+            'public/bower_components/fontawesome/css/font-awesome.css',
             'public/css/styles.css' ]
         }
       }
@@ -31,7 +34,8 @@ module.exports = function(grunt) {
     uglify: {
       dist: {
         files: {
-          'public/js/main.min.js': ['public/js/main.js']
+          'public/assets/js/main.min.js': ['public/assets/js/main.js'],
+          'public/assets/js/scripts.min.js': ['public/assets/js/scripts.js']
         }
       }
     },
@@ -39,7 +43,7 @@ module.exports = function(grunt) {
     cssmin: {
       combine: {
         files: {
-          'public/css/main.min.css': ['public/css/main.css']
+          'public/assets/css/main.min.css': ['public/assets/css/main.css']
         }
       }
     }
