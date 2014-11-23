@@ -1,6 +1,7 @@
 extends ../layout
 
 block content
-  input#searchSub(type="text")
-  button#addsub(data-id=user.getHash()) Add
-  ul#subs
+  #subscriptions
+    input#searchSub(type="text")
+    button#addSub(data-id=user.getHash()) Add
+    ul#subsList

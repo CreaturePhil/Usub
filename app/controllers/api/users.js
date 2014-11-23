@@ -35,10 +35,10 @@ module.exports = {
 
   update: function(req, res, next) {
     var query = hashids.decodeHex(req.params.id);
-    var push = { $push: {'subscriptions': req.body.sub} };
+    var push = { $push: {'subscriptions': req.body.addSub} };
     User.findByIdAndUpdate(query, push, function(err) {
       if (err) return next(err);
-      res.json({ success: 'Succesfully added ' + req.body.sub + ' to subscriptions.' });
+      res.json({ success: 'Succesfully added ' + req.body.addSub + ' to subscriptions.' });
     });
   }
 
