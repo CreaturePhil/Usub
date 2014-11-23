@@ -1,0 +1,17 @@
+# Dependency directory
+node_modules
+
+# Logs
+npm-debug.log
+
+# Code Coverage reports
+coverage
+
+# bower_components
+public/bower_components
+
+# Client-side css and javascript
+public/css/main.css
+public/css/main.min.css
+public/js/main.js
+public/js/main.min.js

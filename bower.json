@@ -1,0 +1,22 @@
+{
+  "name": "beta",
+  "version": "0.0.0",
+  "homepage": "https://github.com/CreaturePhil/beta",
+  "authors": [
+    "Phil <birkal@outlook.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "public/bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "~3.3.1",
+    "fontawesome": "~4.2.0",
+    "instantclick": "~3.0.1"
+  }
+}

@@ -1,0 +1,11 @@
+#!/usr/bin/env node
+var app = require('../server');
+var chalk = require('chalk');
+
+app.set('port', process.env.PORT || 3000);
+
+var server = app.listen(app.get('port'), function() {
+  var env = '[' + chalk.green(app.get('env')) + ']';
+  var port = chalk.magenta(server.address().port);
+  console.log(env + ' Listening on http://localhost:' + port + '...\n');
+});

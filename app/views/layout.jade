@@ -1,0 +1,48 @@
+doctype html
+
+html(lang="en-us")
+
+  head
+    meta(charset="utf-8")
+    meta(http-equiv="X-UA-Compatible" content="IE=edge")
+    meta(name="description" content="")
+    meta(name="viewport" content="width=device-width, initial-scale=1")
+    meta(name='csrf-token' content=_csrf)
+
+    if title
+      title #{title} - Usub
+    else
+      title Usub
+
+    if env === 'development'
+      link(rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css")
+      link(rel="stylesheet" href="/bower_components/fontawesome/css/font-awesome.min.css")
+      link(rel="stylesheet" href="/css/styles.css")
+
+    if env === 'production'
+      link(rel="stylesheet" href="/css/main.min.css")
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+  body
+
+    include partials/navbar
+
+    .container
+      include partials/flash
+      block content
+
+    script(src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js" data-no-instant)
+    if env === 'development'
+      script(src="/bower_components/bootstrap/dist/js/bootstrap.min.js" data-no-instant)
+      script(src="/bower_components/instantclick/instantclick.js" data-no-instant)
+      script(src="/js/scripts.js" data-no-instant)
+
+    if env === 'production'
+      script(src="/js/main.min.js" data-no-instant)
+
+

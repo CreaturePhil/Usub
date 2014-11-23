@@ -1,0 +1,10 @@
+.navbar-nav img {
+  width: 30px;
+  height: 30px;
+  margin: -15px 15px -15px;
+}
+
+.avatar {
+  width: 10em;
+  height: auto;
+}

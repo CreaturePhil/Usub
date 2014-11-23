@@ -1,0 +1,28 @@
+extends ../layout
+
+block content
+  .row
+    .col-md-6.col-md-offset-3
+      h1.text-center Create Account
+      br
+      form(role="form" method="post")
+        input(type="hidden" name="_csrf" value=_csrf)
+        .form-group
+          label Your Username
+          input.form-control(type="text" name="username" autofocus=true required)
+        .form-group
+          label Your Email address
+          input.form-control(type="email" name="email" required)
+        .form-group
+          label Choose a password
+          input.form-control(type="password" name="password" required)
+        .form-group
+          label Confirm your password
+          input.form-control(type="password" name="confirmPassword" required)
+        .form-group
+          button.btn.btn-primary.center-block(type="submit") Create account
+
+      .text-center
+        p.text-muted 
+          | Already have an account? 
+          a(href="/login") Sign in

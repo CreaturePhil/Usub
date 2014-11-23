@@ -1,0 +1,8 @@
+{
+  "curly": false,
+  "node": true,
+  "indent": 2,
+  "maxdepth": false,
+  "maxstatements": false,
+  "maxcomplexity": false
+}

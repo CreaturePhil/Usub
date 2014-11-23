@@ -1,0 +1,13 @@
+extends ../layout
+
+block content
+  .text-center
+    h1.text-danger Are you sure you want to delete your account?
+    p You can delete your account, but keep in mind this action is irreversible.
+  form(role="form" method="post")
+    input(type="hidden" name="_csrf" value=_csrf)
+    .row
+      .col-md-6.text-right
+        button.btn.btn-danger.btn-lg(type="submit") Delete my account
+      .col-md-6.text-left
+        a.btn.btn-primary.btn-lg(href="/settings/account") Cancel
