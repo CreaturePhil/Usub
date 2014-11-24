@@ -44,7 +44,7 @@ module.exports = {
     }
 
     if (req.body.removeSub) {
-      var pull = { $pull: {'subscriptions': req.body.removeSub} };
+      var pull = { $pull: {'subscriptions': String(req.body.removeSub)} };
       User.findByIdAndUpdate(query, pull, function(err) {
         if (err) return next(err);
         res.json({ success: 'Succesfully removed ' + req.body.removeSub + ' from subscriptions.' });

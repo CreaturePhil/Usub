@@ -8,18 +8,23 @@ $(function() {
         subsList.append('<li class="removeSub" data-sub="'+sub+'">'+sub+'<button>x</button></li>'); 
       });
     });
+
+    var watch = { loading: false };
     
     addSub.on('submit', function(e) {
       e.preventDefault();
+      if (watch.loading) return;
       if (!$('#searchSub').val()) {
         return $('.top-right').notify({
           type: 'danger',
           message: { text: 'Cannot be blank!' }
         }).show();
       }
+      watch.loading = true;
       $.ajax($(this).attr('action'), { 
         type: 'PUT',
         dataType: 'json',
+        context: watch,
         data: { 'addSub': $('#searchSub').val() },
         success: function(res) {
           var searchSub = $('#searchSub');
@@ -29,6 +34,7 @@ $(function() {
             $('.highlight').removeClass('highlight');
           }, 1000);
           searchSub.val('');
+          this.loading = false;
         },
         error: function(err, status, msg) {
           console.log(status + msg);
@@ -46,7 +52,6 @@ $(function() {
         data: { 'removeSub': data },
         success: function(res) {
           $(this).closest('.removeSub').remove();
-          console.log(res);
         },
         error: function(err, status, msg) {
           console.log(status + msg);
