@@ -29,7 +29,8 @@
   zoom: 1;
   display: inline-block;
   position: absolute;
-  right: 15px;
+  right: 1.4em;
+  bottom: 7.5em;
   margin-top: 0;
   margin-right: 0;
 }

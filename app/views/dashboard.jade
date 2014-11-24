@@ -1,16 +1,20 @@
 extends layout
 
 block content
-  .row
   for instance, index in videos
     - var vid = JSON.parse(instance).items[0]
-    .col-md-2
-      img.img-responsive(src="https://i.ytimg.com/vi_webp/#{vid.id}/mqdefault.webp")
-      span.video-time= convert(vid.contentDetails.duration)
-      h4
-        a(href="https://www.youtube.com/watch?v=#{vid.id}" target="_blank" data-no-instant)= vid.snippet.title
-      h6
-        | by&nbsp;
-        a(href="https://www.youtube.com/channel/#{vid.snippet.channelId}/videos?view=0" target="_blank" data-no-instant)= vid.snippet.channelTitle
-      h6= moment(vid.snippet.publishedAt).fromNow()
-      h6= vid.statistics.viewCount
+    .col-md-3
+      - var title = vid.snippet.title
+      a(href="https://www.youtube.com/watch?v=#{vid.id}" target="_blank" title="#{title}" data-no-instant)
+        img.img-responsive(src="https://i.ytimg.com/vi_webp/#{vid.id}/mqdefault.webp")
+        span.video-time= convert(vid.contentDetails.duration)
+        if title.length > 25
+          h5: a(href="https://www.youtube.com/watch?v=#{vid.id}" target="_blank" title="#{title}" data-no-instant).
+            #{title.substr(0, 25)}...
+        else
+          h5: a(href="https://www.youtube.com/watch?v=#{vid.id}" target="_blank" title="#{title}" data-no-instant)= title
+        h6
+          | by&nbsp;
+          a(href="https://www.youtube.com/channel/#{vid.snippet.channelId}/videos?view=0" target="_blank" data-no-instant)= vid.snippet.channelTitle
+        h6 #{vid.statistics.viewCount} views
+          span.text-muted &nbsp;#{moment(vid.snippet.publishedAt).fromNow()}
