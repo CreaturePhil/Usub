@@ -17,6 +17,7 @@ var moment = require('moment');
 var routes = require('./config/routes');
 var secrets = require('./config/secrets');
 var validators = require('./lib/validators');
+var convert = require('./lib/converter');
 var csp = require('./lib/csp');
 
 var app = express();
@@ -76,6 +77,7 @@ if (app.get('env') === 'production') {
 
 app.locals.env = app.get('env'); // Make NODE_ENV available in templates.
 app.locals.moment = moment; // Make moment function available in templates.
+app.locals.convert = convert; // Allow youtube video time duration converter available in templates.
 app.use(function(req, res, next) {
   // Make user object available in templates.
   res.locals.user = req.user;

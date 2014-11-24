@@ -1,4 +1,16 @@
 extends layout
 
 block content
-  pre=videos
+  .row
+    ul
+    for instance, index in videos
+      - var vid = JSON.parse(instance).items[0]
+      li
+        img.img-responsive(src="https://i.ytimg.com/vi_webp/#{vid.id}/mqdefault.webp")
+        h1
+          a(href="https://www.youtube.com/watch?v=#{vid.id}" target="_blank" data-no-instant)= vid.snippet.title
+        h2
+          a(href="https://www.youtube.com/channel/#{vid.snippet.channelId}/videos?view=0" target="_blank" data-no-instant)= vid.snippet.channelTitle
+        h2= convert(vid.contentDetails.duration)
+        h6= moment(vid.snippet.publishedAt).format('MMMM Do YYYY, h:mm:ss a')
+        h6= vid.statistics.viewCount

@@ -5,7 +5,7 @@ var secrets = require('../../config/secrets');
 
 module.exports = {
 
-  index: function(req, res) {
+  index: function(req, res, next) {
     if (!req.isAuthenticated()) return res.render('index');
 
     var videos = [];
@@ -13,7 +13,7 @@ module.exports = {
     var yt_channel_endLink = '/videos?view=0';
     var gapis_startLink = 'https://www.googleapis.com/youtube/v3/videos?id=';
     var gapis_midLink = '&key=';
-    var gapis_endLink= '&part=snippet,statistics&fields=items(id,snippet,statistics)';
+    var gapis_endLink= '&part=snippet,contentDetails,statistics';
 
     async.each(req.user.subscriptions, function(user, eachCb) {
       var link = yt_channel_startLink + user + yt_channel_endLink;
