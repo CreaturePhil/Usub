@@ -13,3 +13,23 @@
   background: #FFDC00;
   transition: opacity 500 ease-in-out;
 }
+
+.video-time {
+  padding: 0 4px;
+  font-weight: bold;
+  font-size: 11px;
+  background-color: #000;
+  color: #fff!important;
+  height: 14px;
+  line-height: 14px;
+  opacity: .75;
+  filter: alpha(opacity=75);
+  display: -moz-inline-stack;
+  vertical-align: top;
+  zoom: 1;
+  display: inline-block;
+  position: absolute;
+  right: 15px;
+  margin-top: 0;
+  margin-right: 0;
+}

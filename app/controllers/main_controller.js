@@ -37,6 +37,11 @@ module.exports = {
         });
     }, function(err) {
       if (err) return next(err);
+      videos.sort(function(a, b) {
+        b = JSON.parse(b).items[0].snippet.publishedAt;
+        a = JSON.parse(a).items[0].snippet.publishedAt; 
+        return new Date(b) - new Date(a);
+      });
       res.render('dashboard', { videos: videos });
     });
   },
