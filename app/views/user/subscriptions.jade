@@ -5,6 +5,6 @@ block content
     form#addSub(action="/api/users/#{user.getHash()}" method="put" data-id="#{user.getHash()}")
       input(type="hidden" name="_csrf" value=_csrf)
       .form-group
-        input#searchSub(type="text")
-        button(type="submit") Add
-    ul#subsList
+        input#searchSub(type="text" placeholder="Add Subscriptions" required)
+        button.btn.btn-primary(type="submit") Add
+    table#subsList.table.table-striped.text-center

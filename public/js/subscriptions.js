@@ -5,7 +5,11 @@ $(function() {
 
     $.getJSON('/api/users/' + addSub.data('id'), function(res) {
       $.each(res.subscriptions, function(index, sub) {
-        subsList.append('<li class="removeSub" data-sub="'+sub+'">'+sub+'<button>x</button></li>'); 
+        var display = '<tr class="removeSub" data-sub="' + sub + '">' +
+                      '<td>' + sub + '</td>' +
+                      '<td><span class="glyphicon glyphicon-remove"></span></td>' +
+                      '</tr>';
+        subsList.append(display); 
       });
     });
 
@@ -28,8 +32,12 @@ $(function() {
         data: { 'addSub': $('#searchSub').val() },
         success: function(res) {
           var searchSub = $('#searchSub');
+          var display = '<tr class="removeSub" data-sub="' + searchSub.val() + '">' +
+                        '<td class="highlight">' + searchSub.val() + '</td>' +
+                        '<td class="highlight"><span class="glyphicon glyphicon-remove"></span></td>' +
+                        '</tr>';
 
-          $('#subsList').prepend('<li class="highlight removeSub" data-sub="'+searchSub.val()+'">'+searchSub.val()+'<button>x</button></li>');  // TEMP
+          $('#subsList').prepend(display);
           setTimeout(function() {
             $('.highlight').removeClass('highlight');
           }, 1000);
@@ -42,7 +50,7 @@ $(function() {
       });
     }); 
 
-    $('#subsList').on('click', 'button', function() {
+    $('#subsList').on('click', '.glyphicon-remove', function() {
       var removeSub = this;
       var data = $(this).closest('.removeSub').data('sub');
       $.ajax('/api/users/' + addSub.data('id'), { 

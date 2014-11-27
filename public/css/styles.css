@@ -34,3 +34,17 @@
   margin-top: 0;
   margin-right: 0;
 }
+
+#searchSub {
+  width: 90%;
+}
+
+@media (max-width: 580px) {
+  #searchSub {
+    width: 80%;
+  }
+}
+
+.glyphicon-remove {
+  cursor: pointer;
+}
