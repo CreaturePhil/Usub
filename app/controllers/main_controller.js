@@ -23,8 +23,9 @@ module.exports = {
             link: 'https://www.youtube.com' + $(this).find('a').attr('href').split('&')[0],
             time: $(this).find('.video-time').text(),
             title: $(this).find('.yt-lockup-content a').text(),
-            views: $(this).find('.yt-lockup-meta ul li').first().text(),
-            published: $(this).find('.yt-lockup-deemphasized-text').text()
+            author: user,
+            viewCount: $(this).find('.yt-lockup-meta ul li').first().text(),
+            publishedAt: $(this).find('.yt-lockup-deemphasized-text').text()
           };
         }).get();
         videos = videos.concat(content);
