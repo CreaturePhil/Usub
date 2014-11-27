@@ -1,8 +1,6 @@
 var async = require('async');
-var scraperjs = require('scraperjs');
 var request = require('request');
 var cheerio = require('cheerio');
-var secrets = require('../../config/secrets');
 
 module.exports = {
 
@@ -32,8 +30,48 @@ module.exports = {
         videos = videos.concat(content);
         callback();
       });
-    }, function(err, results) {
+    }, function(err) {
       if (err) return next(err);
+      var timeFrame = { 
+        'second': [], 
+        'minute': [],
+        'hour': [],
+        'day': [],
+        'week': [],
+        'month': [],
+        'year': []
+      };
+      var len = videos.length;
+
+      function timeInsertion(time, content) {
+        if (content.publishedAt.indexOf(time) >= 0) {
+          timeFrame[time].push(content);
+        } 
+      }
+
+      while(len--) {
+        timeInsertion('second', videos[len]);
+        timeInsertion('minute', videos[len]);
+        timeInsertion('hour', videos[len]);
+        timeInsertion('day', videos[len]);
+        timeInsertion('week', videos[len]);
+        timeInsertion('month', videos[len]);
+        timeInsertion('year', videos[len]);
+      }
+
+      var timeArray = Object.keys(timeFrame);
+      var timeLen = timeArray.length; 
+      var re = /[0-9]{1,2}/;
+
+      while(timeLen--) {
+        timeFrame[timeArray[timeLen]].sort(function(a, b) {
+          return Number(a.publishedAt.match(re)[0]) - Number(b.publishedAt.match(re)[0]);
+        });
+      }
+
+      videos = timeFrame.second.concat(timeFrame.minute, timeFrame.hour, timeFrame.day);
+      videos = videos.concat(timeFrame.week, timeFrame.month, timeFrame.year);
+            
       res.render('dashboard', { videos: videos });
     });
   },
