@@ -33,7 +33,7 @@ module.exports = {
     }, function(err) {
       if (err) return next(err);
 
-      var timeFrame = { 'second': [], 'minute': [], 'hour': [], 'day': [], 'week': [], 'month': [] };
+      var timeFrame = { 'second': [], 'minute': [], 'hour': [], 'day': [], 'week': [] };
       var len = videos.length;
       var timeArray = Object.keys(timeFrame);
       var timeLen = timeArray.length; 
@@ -41,7 +41,7 @@ module.exports = {
       
       function timeInsertion(time, content) {
         if (content.publishedAt.indexOf(time) >= 0) {
-          if (time === 'month' && Number(content.publishedAt.match(re)[0]) > 6) return;
+          if (time === 'week' && Number(content.publishedAt.match(re)[0]) > 2) return;
           timeFrame[time].push(content);
         } 
       }
@@ -56,15 +56,13 @@ module.exports = {
         timeInsertion('hour', videos[len]);
         timeInsertion('day', videos[len]);
         timeInsertion('week', videos[len]);
-        timeInsertion('month', videos[len]);
       }
 
       while(timeLen--) {
         timeFrame[timeArray[timeLen]].sort(timeSort);
       }
 
-      videos = timeFrame.second.concat(timeFrame.minute, timeFrame.hour, timeFrame.day);
-      videos = videos.concat(timeFrame.week, timeFrame.month);
+      videos = timeFrame.second.concat(timeFrame.minute, timeFrame.hour, timeFrame.day, timeFrame.week);
 
       res.render('dashboard', { videos: videos });
     });
