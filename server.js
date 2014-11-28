@@ -44,9 +44,10 @@ if (app.get('env') === 'development') {
   app.locals.pretty = true;
 
   // turn on console logging
+  app.use(morgan('dev'));
 }
-app.use(morgan('dev'));
 
+app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(methodOverride());

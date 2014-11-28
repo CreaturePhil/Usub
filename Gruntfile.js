@@ -17,7 +17,9 @@ module.exports = function(grunt) {
             'public/bower_components/bootstrap-notify/js/bootstrap-notify.js',
             'public/bower_components/instantclick/instantclick.js',
             'public/js/scripts.js'],
-          'public/assets/js/scripts.js': ['public/js/settings.js', 'public/js/subscriptions.js']
+          'public/assets/js/scripts.js': [
+            'public/js/settings.js', 
+            'public/js/subscriptions.js']
         }
       },
       css: {
@@ -26,6 +28,7 @@ module.exports = function(grunt) {
             'public/bower_components/bootstrap/dist/css/bootstrap.css',
             'public/bower_components/bootstrap-notify/css/bootstrap-notify.css',
             'public/bower_components/fontawesome/css/font-awesome.css',
+            'public/bower_components/bootswatch/cosmo/bootstrap.min.css',
             'public/css/styles.css' ]
         }
       }
