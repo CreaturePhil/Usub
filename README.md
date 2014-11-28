@@ -1,16 +1,12 @@
-# beta 
+# Usub
 
-[![Build Status](https://travis-ci.org/CreaturePhil/beta.svg)](https://travis-ci.org/CreaturePhil/beta)
-[![Dependency Status](https://david-dm.org/creaturephil/beta.svg)](https://david-dm.org/creaturephil/beta)
-[![devDependency Status](https://david-dm.org/creaturephil/beta/dev-status.svg)](https://david-dm.org/creaturephil/beta#info=devDependencies)
-
-An Express' opinionated boilerplate for Node.js web applications.
+Grid-like Youtube Subscription Feed.
 
 ## Getting Started
 
 ```bash
-$ git clone https://github.com/CreaturePhil/alpha.git myproject
-$ cd myproject
+$ git clone https://github.com/CreaturePhil/Usub.git
+$ cd Usub
 $ npm install && bower install
 $ grunt && npm start
 ```
