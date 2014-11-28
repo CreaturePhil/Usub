@@ -61,12 +61,13 @@ module.exports = {
 
       var timeArray = Object.keys(timeFrame);
       var timeLen = timeArray.length; 
+      var timeSort = function(a, b) {
+        return Number(a.publishedAt.match(re)[0]) - Number(b.publishedAt.match(re)[0]);
+      };
       var re = /[0-9]{1,2}/;
 
       while(timeLen--) {
-        timeFrame[timeArray[timeLen]].sort(function(a, b) {
-          return Number(a.publishedAt.match(re)[0]) - Number(b.publishedAt.match(re)[0]);
-        });
+        timeFrame[timeArray[timeLen]].sort(timeSort);
       }
 
       videos = timeFrame.second.concat(timeFrame.minute, timeFrame.hour, timeFrame.day);

@@ -17,7 +17,7 @@ module.exports = function(grunt) {
             'public/bower_components/bootstrap-notify/js/bootstrap-notify.js',
             'public/bower_components/instantclick/instantclick.js',
             'public/js/scripts.js'],
-          'public/assets/js/scripts.js': 'public/js/*.js'
+          'public/assets/js/scripts.js': ['public/js/settings.js', 'public/js/subscriptions.js']
         }
       },
       css: {

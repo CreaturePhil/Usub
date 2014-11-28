@@ -13,6 +13,7 @@ var mongoose = require('mongoose');
 var passport = require('passport');
 var lusca = require('lusca');
 var moment = require('moment');
+var _ = require('lodash');
 
 var routes = require('./config/routes');
 var secrets = require('./config/secrets');

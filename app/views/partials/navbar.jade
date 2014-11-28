@@ -22,7 +22,8 @@
         else
           li.dropdown
             a.dropdown-toggle(href='#', data-toggle='dropdown' data-no-instant)
-              img(src='#{user.profile.avatar || user.gravatar(60)}' alt="Profile Pic")
+              if user.gravatar
+                img(src='#{user.profile.avatar || user.gravatar(60)}' alt="Profile Pic")
               i.caret
             ul.dropdown-menu
               li
@@ -31,7 +32,7 @@
                   | &nbsp;Profile
               li
                 a(href='/subscriptions')
-                  span.fa.fa-cogs
+                  span.fa.fa-youtube-play
                   | &nbsp;Manage subscriptions
               li
                 a(href='/settings/account')

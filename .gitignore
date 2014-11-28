@@ -11,7 +11,4 @@ coverage
 public/bower_components
 
 # Client-side css and javascript
-public/css/main.css
-public/css/main.min.css
-public/js/main.js
-public/js/main.min.js
+public/assets

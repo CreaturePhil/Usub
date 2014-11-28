@@ -1,7 +1,8 @@
 $(function() {
   if ($('#subscriptions').length >= 1) {
-    var addSub = $('#addSub')
+    var addSub = $('#addSub');
     var subsList = $('#subsList');
+    var csrf = $('input[type="hidden"]').val();
 
     $.getJSON('/api/users/' + addSub.data('id'), function(res) {
       $.each(res.subscriptions, function(index, sub) {
@@ -29,7 +30,7 @@ $(function() {
         type: 'PUT',
         dataType: 'json',
         context: watch,
-        data: { 'addSub': $('#searchSub').val() },
+        data: { 'addSub': $('#searchSub').val(), '_csrf': csrf },
         success: function(res) {
           var searchSub = $('#searchSub');
           var display = '<tr class="removeSub" data-sub="' + searchSub.val() + '">' +
@@ -46,6 +47,7 @@ $(function() {
         },
         error: function(err, status, msg) {
           console.log(status + msg);
+          this.loading = false;
         }
       });
     }); 
@@ -57,7 +59,7 @@ $(function() {
         type: 'PUT',
         dataType: 'json',
         context: removeSub,
-        data: { 'removeSub': data },
+        data: { 'removeSub': data, '_csrf': csrf },
         success: function(res) {
           $(this).closest('.removeSub').remove();
         },

@@ -14,8 +14,6 @@ module.exports = {
 
   hash: process.env.HASH || 'Your Hash Secret here',
 
-  banUsernames: ['about', 'signup', 'login', 'logout', 'forgot_password', 'reset_password', 'settings', 'api'],
-
-  googleApiKey: process.env.GOOGLE_API_KEY
+  banUsernames: ['about', 'signup', 'login', 'logout', 'forgot_password', 'reset_password', 'settings', 'api', 'subscriptions']
 
 };
