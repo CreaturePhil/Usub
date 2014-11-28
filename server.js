@@ -13,7 +13,6 @@ var mongoose = require('mongoose');
 var passport = require('passport');
 var lusca = require('lusca');
 var moment = require('moment');
-var _ = require('lodash');
 
 var routes = require('./config/routes');
 var secrets = require('./config/secrets');
@@ -45,8 +44,8 @@ if (app.get('env') === 'development') {
   app.locals.pretty = true;
 
   // turn on console logging
-  app.use(morgan('dev'));
 }
+app.use(morgan('dev'));
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
