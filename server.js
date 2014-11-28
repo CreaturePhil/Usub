@@ -84,7 +84,8 @@ app.use(function(req, res, next) {
   next();
 });
 
-app.use(express.static(path.join(__dirname, 'public')));
+// static cache for one week
+app.use(express.static(path.join(__dirname, 'public'), { maxAge: 604800000 }));
 
 // routes setup
 app.use('/', routes);
