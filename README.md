@@ -1,4 +1,4 @@
-# Usub [![Build Status](https://travis-ci.org/CreaturePhil/Usub.svg)](https://travis-ci.org/CreaturePhil/Usub)
+# Usub [![Build Status](https://travis-ci.org/CreaturePhil/Usub.svg)](https://travis-ci.org/CreaturePhil/Usub) [![Dependency Status](https://david-dm.org/creaturephil/Usub.svg)](https://david-dm.org/creaturephil/Usub) [![devDependency Status](https://david-dm.org/creaturephil/Usub/dev-status.svg)](https://david-dm.org/creaturephil/Usub#info=devDependencies)
 
 Grid-like Youtube Subscription Feed.
 
