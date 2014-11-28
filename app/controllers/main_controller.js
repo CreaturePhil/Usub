@@ -1,6 +1,7 @@
 var async = require('async');
 var request = require('request');
 var cheerio = require('cheerio');
+var subscriptions = require('../../lib/subscriptions');
 
 module.exports = {
 
@@ -32,21 +33,22 @@ module.exports = {
       });
     }, function(err) {
       if (err) return next(err);
-      var timeFrame = { 
-        'second': [], 
-        'minute': [],
-        'hour': [],
-        'day': [],
-        'week': [],
-        'month': [],
-        'year': []
-      };
-      var len = videos.length;
 
+      var timeFrame = { 'second': [], 'minute': [], 'hour': [], 'day': [], 'week': [], 'month': [] };
+      var len = videos.length;
+      var timeArray = Object.keys(timeFrame);
+      var timeLen = timeArray.length; 
+      var re = /[0-9]{1,2}/;
+      
       function timeInsertion(time, content) {
         if (content.publishedAt.indexOf(time) >= 0) {
+          if (time === 'month' && Number(content.publishedAt.match(re)[0]) > 6) return;
           timeFrame[time].push(content);
         } 
+      }
+
+      function timeSort(a, b) {
+        return Number(a.publishedAt.match(re)[0]) - Number(b.publishedAt.match(re)[0]);
       }
 
       while(len--) {
@@ -56,23 +58,15 @@ module.exports = {
         timeInsertion('day', videos[len]);
         timeInsertion('week', videos[len]);
         timeInsertion('month', videos[len]);
-        timeInsertion('year', videos[len]);
       }
-
-      var timeArray = Object.keys(timeFrame);
-      var timeLen = timeArray.length; 
-      var timeSort = function(a, b) {
-        return Number(a.publishedAt.match(re)[0]) - Number(b.publishedAt.match(re)[0]);
-      };
-      var re = /[0-9]{1,2}/;
 
       while(timeLen--) {
         timeFrame[timeArray[timeLen]].sort(timeSort);
       }
 
       videos = timeFrame.second.concat(timeFrame.minute, timeFrame.hour, timeFrame.day);
-      videos = videos.concat(timeFrame.week, timeFrame.month, timeFrame.year);
-            
+      videos = videos.concat(timeFrame.week, timeFrame.month);
+
       res.render('dashboard', { videos: videos });
     });
   },
