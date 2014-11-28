@@ -1,4 +1,4 @@
-# Usub
+# Usub [![Build Status](https://travis-ci.org/CreaturePhil/Usub.svg)](https://travis-ci.org/CreaturePhil/Usub)
 
 Grid-like Youtube Subscription Feed.
 
