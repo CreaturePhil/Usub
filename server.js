@@ -58,6 +58,7 @@ app.use(session({
   resave: true,
   saveUninitialized: true,
   secret: secrets.session,
+  cookie: { secure: true },
   store: new MongoStore({
     url: secrets.db,
     auto_reconnect: true
