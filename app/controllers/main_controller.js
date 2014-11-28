@@ -14,7 +14,7 @@ module.exports = {
     async.each(req.user.subscriptions, function(user, callback) {
       var link = yt_channel_startLink + user + yt_channel_endLink;
       request(link, function(err, response, body) {
-        if (err || response.statusCode !== 200) return next(err);
+        if (err || response.statusCode !== 200) return callback();
         var $ = cheerio.load(body);
         var content = $('.channels-content-item').map(function(i, el) {
           return {
