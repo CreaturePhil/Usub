@@ -1,5 +1,4 @@
 var router = require('./routes');
-var debug = require('../lib/debug');
 
 module.exports = {
 

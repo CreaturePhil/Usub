@@ -1,6 +1,7 @@
 {
   "name": "usub",
   "version": "0.1.0",
+  "description": "Grid-like Youtube Subscription Feed.",
   "scripts": {
     "start": "node ./bin/www",
     "test": "grunt test && mocha --reporter=spec --timeout=10000",
