@@ -18,7 +18,7 @@ module.exports = {
         var $ = cheerio.load(body);
         var content = $('.channels-content-item').map(function(i, el) {
           return {
-            img: 'http:' + $(this).find('img').attr('src'),
+            img: 'https:' + $(this).find('img').attr('src'),
             link: 'https://www.youtube.com' + $(this).find('a').attr('href').split('&')[0],
             time: $(this).find('.video-time').text(),
             title: $(this).find('.yt-lockup-content a').text(),
