@@ -2,7 +2,17 @@ $(function() {
   if ($('#subscriptions').length >= 1) {
     var addSub = $('#addSub');
     var subsList = $('#subsList');
-    var csrf = $('input[type="hidden"]').val();
+    var subs = [];
+
+    var setCSRFToken = function(securityToken) {
+      $.ajaxPrefilter(function(options, _, xhr) {
+        if ( !xhr.crossDomain ) {
+          xhr.setRequestHeader('X-CSRF-Token', securityToken);
+        }
+      });
+    };
+
+    setCSRFToken($('meta[name="csrf-token"]').attr('content'));
 
     $.getJSON('/api/users/' + addSub.data('id'), function(res) {
       $.each(res.subscriptions, function(index, sub) {
@@ -11,18 +21,19 @@ $(function() {
                       '<td><span class="glyphicon glyphicon-remove"></span></td>' +
                       '</tr>';
         subsList.append(display); 
+        subs.push(sub.toLowerCase());
       });
     });
 
     var watch = { loading: false };
-    
-    addSub.on('submit', function(e) {
+    var addSubFn = function(e) {
       e.preventDefault();
       if (watch.loading) return;
-      if (!$('#searchSub').val()) {
+      var searchSub = $('#searchSub').val();
+      if (subs.indexOf(searchSub) >= 0) {
         return $('.top-right').notify({
           type: 'danger',
-          message: { text: 'Cannot be blank!' }
+          message: { text: 'You already added ' + searchSub + '.'  }
         }).show();
       }
       watch.loading = true;
@@ -30,7 +41,7 @@ $(function() {
         type: 'PUT',
         dataType: 'json',
         context: watch,
-        data: { 'addSub': $('#searchSub').val(), '_csrf': csrf },
+        data: { 'addSub': searchSub },
         success: function(res) {
           var searchSub = $('#searchSub');
           var display = '<tr class="removeSub" data-sub="' + searchSub.val() + '">' +
@@ -42,6 +53,7 @@ $(function() {
           setTimeout(function() {
             $('.highlight').removeClass('highlight');
           }, 1000);
+          subs.push(searchSub.val());
           searchSub.val('');
           this.loading = false;
         },
@@ -50,23 +62,30 @@ $(function() {
           this.loading = false;
         }
       });
-    }); 
+    };
+    
 
-    $('#subsList').on('click', '.glyphicon-remove', function() {
+    var removeSubFn = function() {
       var removeSub = this;
       var data = $(this).closest('.removeSub').data('sub');
       $.ajax('/api/users/' + addSub.data('id'), { 
         type: 'PUT',
         dataType: 'json',
         context: removeSub,
-        data: { 'removeSub': data, '_csrf': csrf },
+        data: { 'removeSub': data },
         success: function(res) {
-          $(this).closest('.removeSub').remove();
+          var removeSub = $(this).closest('.removeSub');
+          subs.splice(subs.indexOf(removeSub.data('sub')), 1);
+          removeSub.remove();
         },
         error: function(err, status, msg) {
           console.log(status + msg);
         }
       });
-    });
+    };
+
+    addSub.on('submit', addSubFn); 
+    $('#subsList').on('click', '.glyphicon-remove', removeSubFn);
+
   }
 });
