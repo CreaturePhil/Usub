@@ -2,6 +2,7 @@ var async = require('async');
 var passport = require('passport');
 var crypto = require('crypto');
 var nodemailer = require('nodemailer');
+var _ = require('lodash');
 
 var User = require('../models/user');
 var secrets = require('../../config/secrets');
@@ -103,8 +104,13 @@ module.exports = {
   },
 
   logout: function(req, res) {
-    req.logout();
-    res.redirect('/');
+    if (!req.user.google && !req.user.password) {
+      req.flash('info', { msg: 'You must set a new password before logging out or link to an Google account.' });
+      res.redirect('/settings/password');
+    } else {
+      req.logout();
+      res.redirect('/');
+    }
   },
 
   forgotPassword: {
@@ -311,6 +317,29 @@ module.exports = {
         res.redirect('/');
       });
     }
+  },
+
+  google: function(req, res) {
+    res.render('user/settings', {
+      title: 'Google',
+      description: 'Link to Google Account'
+    });
+  },
+
+  OauthUnlink: function(req, res, next) {
+    var provider = req.params.provider;
+    User.findById(req.user.id, function(err, user) {
+      if (err) return next(err);
+
+      user[provider] = undefined;
+      user.tokens = _.reject(user.tokens, function(token) { return token.kind === provider; });
+
+      user.save(function(err) {
+        if (err) return next(err);
+        req.flash('info', { msg: provider + ' account has been unlinked.' });
+        res.redirect('/settings/google');
+      });
+    });
   },
 
   subscriptions: function(req, res) {

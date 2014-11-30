@@ -1,4 +1,5 @@
 var express = require('express');
+var passport = require('passport');
 
 var resource = require('../lib/resource');
 
@@ -45,6 +46,20 @@ router.route('/settings/password')
 router.route('/settings/delete')
   .get(login_required, userController.deleteAccount.get)
   .post(login_required, userController.deleteAccount.post);
+
+router.route('/settings/google')
+  .get(login_required, userController.google);
+
+router
+  .get('/settings/unlink/:provider', login_required, userController.OauthUnlink);
+
+router
+  .get('/auth/google', passport.authenticate('google', { scope: 'profile email' }));
+
+router
+  .get('/auth/google/callback', passport.authenticate('google', { failureRedirect: '/settings/google' }), function(req, res) {
+    res.redirect('/settings/google');
+  });
 
 router.route('/subscriptions')
   .get(login_required, userController.subscriptions);

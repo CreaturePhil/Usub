@@ -12,8 +12,11 @@ var userSchema = new mongoose.Schema({
   username: { type: String, unique: true },
   email: { type: String, unique: true, lowercase: true },
   password: String,
+  google: String,
   rank: { type: String, default: 'User' },
-  subscriptions: [],
+  subscriptions: Array,
+  tokens: Array,
+
 
   profile: {
     avatar: { type: String, default: '' },

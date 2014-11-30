@@ -13,6 +13,13 @@ module.exports = {
 
   hash: process.env.HASH || 'Your Hash Secret here',
 
+  google: {
+    clientID: process.env.GOOGLE_ID || '828110519058.apps.googleusercontent.com',
+    clientSecret: process.env.GOOGLE_SECRET || 'JdZsIaWhUFIchmC1a_IZzOHb',
+    callbackURL: '/auth/google/callback',
+    passReqToCallback: true
+  },
+
   banUsernames: ['about', 'signup', 'login', 'logout', 'forgot_password', 'reset_password', 'settings', 'api', 'subscriptions']
 
 };
