@@ -13,7 +13,7 @@ block content
           h5: a(href="#{vid.link}" title="#{vid.title}" data-no-instant)= vid.title
         h6
           | by&nbsp;
-          a(href="https://www.youtube.com/channel/#{vid.author}/videos?view=0" target="_blank" data-no-instant).
+          a(href="https://www.youtube.com/user/#{vid.author}/videos?view=0" target="_blank" data-no-instant).
             #{vid.author}
         h6 #{vid.viewCount} views
-          span.text-muted &nbsp;#{vid.publishedAt}
+          span.text-muted &nbsp;&nbsp;#{vid.publishedAt}
