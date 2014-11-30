@@ -1,91 +1,112 @@
-$(function() {
-  if ($('#subscriptions').length >= 1) {
-    var addSub = $('#addSub');
-    var subsList = $('#subsList');
-    var subs = [];
+var subscriptions = {
 
-    var setCSRFToken = function(securityToken) {
-      $.ajaxPrefilter(function(options, _, xhr) {
-        if ( !xhr.crossDomain ) {
-          xhr.setRequestHeader('X-CSRF-Token', securityToken);
-        }
-      });
-    };
+  init: function() {
+    if ($('#subscriptions').length >= 1) {
+      this.setCSRFToken($('meta[name="csrf-token"]').attr('content'));
 
-    setCSRFToken($('meta[name="csrf-token"]').attr('content'));
+      $.getJSON('/api/users/' + this.els.addForm.data('id'), this.show.bind(this));
+      
+      this.els.addForm.on('submit', this.update.bind(this)); 
+      this.els.list.on('click', '.glyphicon-remove', this.remove);
+    }
+  },
 
-    $.getJSON('/api/users/' + addSub.data('id'), function(res) {
-      $.each(res.subscriptions, function(index, sub) {
-        var display = '<tr class="removeSub" data-sub="' + sub + '">' +
-                      '<td>' + sub + '</td>' +
-                      '<td><span class="glyphicon glyphicon-remove"></span></td>' +
-                      '</tr>';
-        subsList.append(display); 
-        subs.push(sub.toLowerCase());
-      });
+  els: {
+    'addForm': $('#addSub'),
+    'list': $('#subsList'),
+    'searchInput': $('#searchSub')
+  },
+
+  data: {
+    subs: [],
+    loading: false
+  },
+
+  setCSRFToken: function(securityToken) {
+    $.ajaxPrefilter(function(options, _, xhr) {
+      if (!xhr.crossDomain) {
+        xhr.setRequestHeader('X-CSRF-Token', securityToken);
+      }
+    });
+  },
+
+  show: function(res) {
+    $.each(res.subscriptions, this.render.bind(this));
+  },
+
+  render: function(index, sub) {
+    var display = '<tr class="removeSub" data-sub="' + sub + '">' +
+                  '<td>' + sub + '</td>' +
+                  '<td><span class="glyphicon glyphicon-remove"></span></td>' +
+                  '</tr>';
+    this.els.list.append(display);
+    this.data.subs.push(sub.toLowerCase());
+  },
+
+  update: function(e) {
+    e.preventDefault();
+
+    if (this.data.loading) {
+      return;
+    }
+
+    if (this.data.subs.indexOf(this.els.searchInput.val().toLowerCase()) >= 0) {
+      return $('.top-right').notify({
+        type: 'danger',
+        message: { text: 'You already added ' + this.els.searchInput.val() + '.'  }
+      }).show();
+    }
+
+    this.data.loading = true;
+
+    var req = $.ajax(this.els.addForm.attr('action'), { 
+      type: 'PUT',
+      dataType: 'json',
+      data: { 'addSub': this.els.searchInput.val() },
     });
 
-    var watch = { loading: false };
-    var addSubFn = function(e) {
-      e.preventDefault();
-      if (watch.loading) return;
-      var searchSub = $('#searchSub').val();
-      if (subs.indexOf(searchSub) >= 0) {
-        return $('.top-right').notify({
-          type: 'danger',
-          message: { text: 'You already added ' + searchSub + '.'  }
-        }).show();
+    var success = function(res) {
+      var searchInput = this.els.searchInput;
+      var display = '<tr class="removeSub" data-sub="' + searchInput.val() + '">' +
+                    '<td class="highlight">' + searchInput.val() + '</td>' +
+                    '<td class="highlight"><span class="glyphicon glyphicon-remove"></span></td>' +
+                    '</tr>';
+      this.els.list.prepend(display);
+      this.data.subs.push(searchInput.val());
+      this.data.loading = false;
+      searchInput.val('');
+      setTimeout(function() {
+        $('.highlight').removeClass('highlight');
+      }, 1000);
+    };
+
+    var error = function(err, status, msg) {
+      console.log(status + msg);
+      this.data.loading = false;
+    };
+
+    req.then(success.bind(this), error.bind(this));
+  },
+
+  remove: function() {
+    subscriptions.tempEl = $(this).closest('.removeSub');
+    $.ajax('/api/users/' + subscriptions.els.addForm.data('id'), { 
+      type: 'PUT',
+      dataType: 'json',
+      context: subscriptions,
+      data: { 'removeSub': subscriptions.tempEl.data('sub') },
+      success: function(res) {
+        var removeSub = subscriptions.tempEl.closest('.removeSub');
+        delete subscriptions.tempEl;
+        this.data.subs.splice(this.data.subs.indexOf(removeSub.data('sub')), 1);
+        removeSub.remove();
+      },
+      error: function(err, status, msg) {
+        console.log(status + msg);
       }
-      watch.loading = true;
-      $.ajax($(this).attr('action'), { 
-        type: 'PUT',
-        dataType: 'json',
-        context: watch,
-        data: { 'addSub': searchSub },
-        success: function(res) {
-          var searchSub = $('#searchSub');
-          var display = '<tr class="removeSub" data-sub="' + searchSub.val() + '">' +
-                        '<td class="highlight">' + searchSub.val() + '</td>' +
-                        '<td class="highlight"><span class="glyphicon glyphicon-remove"></span></td>' +
-                        '</tr>';
-
-          $('#subsList').prepend(display);
-          setTimeout(function() {
-            $('.highlight').removeClass('highlight');
-          }, 1000);
-          subs.push(searchSub.val());
-          searchSub.val('');
-          this.loading = false;
-        },
-        error: function(err, status, msg) {
-          console.log(status + msg);
-          this.loading = false;
-        }
-      });
-    };
-    
-
-    var removeSubFn = function() {
-      var removeSub = this;
-      var data = $(this).closest('.removeSub').data('sub');
-      $.ajax('/api/users/' + addSub.data('id'), { 
-        type: 'PUT',
-        dataType: 'json',
-        context: removeSub,
-        data: { 'removeSub': data },
-        success: function(res) {
-          var removeSub = $(this).closest('.removeSub');
-          subs.splice(subs.indexOf(removeSub.data('sub')), 1);
-          removeSub.remove();
-        },
-        error: function(err, status, msg) {
-          console.log(status + msg);
-        }
-      });
-    };
-
-    addSub.on('submit', addSubFn); 
-    $('#subsList').on('click', '.glyphicon-remove', removeSubFn);
-
+    });
   }
-});
+
+};
+
+$(function() { subscriptions.init(); });
