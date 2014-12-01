@@ -257,6 +257,11 @@ module.exports = {
         return res.redirect('/settings/account');
       }
 
+      if (secrets.banUsernames.indexOf(req.body.username.toLowerCase()) >= 0) {
+        req.flash('errors', { msg: 'Your username cannot be called that.' });
+        return res.redirect('/settings/account');
+      }
+
       User.findById(req.user.id, function(err, user) {
         if (err) return next(err);
         user.profile.avatar = req.body.avatar || '';

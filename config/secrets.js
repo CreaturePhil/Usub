@@ -1,5 +1,3 @@
-var router = require('./routes');
-
 module.exports = {
 
   db: process.env.MONGODB || 'mongodb://localhost:27017/test',
@@ -20,6 +18,13 @@ module.exports = {
     passReqToCallback: true
   },
 
-  banUsernames: ['about', 'signup', 'login', 'logout', 'forgot_password', 'reset_password', 'settings', 'api', 'subscriptions']
+  banUsernames: [ 'about'
+                , 'signup'
+                , 'login'
+                , 'logout'
+                , 'settings'
+                , 'auth'
+                , 'subscriptions'
+                , 'api' ]
 
 };
