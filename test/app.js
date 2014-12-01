@@ -76,14 +76,6 @@ describe('GET /settings/delete', function() {
   });
 });
 
-describe('GET /logout', function() {
-  it('should return 302 Redirect', function(done) {
-    request(app)
-      .get('/logout')
-      .expect(302, done);
-  });
-});
-
 describe('GET /api/users', function() {
   it('should return 200 OK', function(done) {
     var user = new User({
