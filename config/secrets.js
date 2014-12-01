@@ -18,13 +18,13 @@ module.exports = {
     passReqToCallback: true
   },
 
-  banUsernames: [ 'about'
-                , 'signup'
-                , 'login'
-                , 'logout'
-                , 'settings'
-                , 'auth'
-                , 'subscriptions'
-                , 'api' ]
+  banUsernames: [ 'about', 
+                  'signup',
+                  'login',
+                  'logout',
+                  'settings',
+                  'auth',
+                  'subscriptions',
+                  'api' ]
 
 };
