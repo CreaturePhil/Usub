@@ -63,7 +63,7 @@ passport.use(new GoogleStrategy(secrets.google, function(req, accessToken, refre
           user.uid = profile._json.email.toLowerCase();
           user.username = profile._json.email;
           user.google = profile.id;
-          user.tokens.push({ kind: 'google', accessToken: accessToken });
+          user.tokens.push({ kind: 'google', accessToken: accessToken, email: profile._json.email });
           user.profile.avatar = profile._json.picture;
           user.save(function(err) {
             done(err, user);

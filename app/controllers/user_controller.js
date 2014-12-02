@@ -104,7 +104,7 @@ module.exports = {
   },
 
   logout: function(req, res) {
-    if (!req.user.google && !req.user.password) {
+    if (!req.user.google && !req.user.password && !req.user.username && !req.user.email) {
       req.flash('info', { msg: 'You must set a new password before logging out or link to an Google account.' });
       res.redirect('/settings/password');
     } else {
@@ -336,6 +336,9 @@ module.exports = {
     User.findById(req.user.id, function(err, user) {
       if (err) return next(err);
 
+      if (user.email === tokens[0].email) {
+        user.email = undefined;
+      }
       user[provider] = undefined;
       user.tokens = _.reject(user.tokens, function(token) { return token.kind === provider; });
 
