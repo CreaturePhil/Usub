@@ -30,11 +30,16 @@ var subscriptions = {
     });
   },
 
+  cleanInput: function(input) {
+    return $('<div/>').text(input).text();
+  },
+
   show: function(res) {
     $.each(res.subscriptions, this.render.bind(this));
   },
 
   render: function(index, sub) {
+    sub = this.cleanInput(sub);
     var display = '<tr class="removeSub" data-sub="' + sub + '">' +
                   '<td>' + sub + '</td>' +
                   '<td><span class="glyphicon glyphicon-remove"></span></td>' +
@@ -53,7 +58,7 @@ var subscriptions = {
     if (this.data.subs.indexOf(this.els.searchInput.val().toLowerCase()) >= 0) {
       return $('.top-right').notify({
         type: 'danger',
-        message: { text: 'You already added ' + this.els.searchInput.val() + '.'  }
+        message: { text: 'You already added ' + this.cleanInput(this.els.searchInput.val()) + '.'  }
       }).show();
     }
 
@@ -67,12 +72,13 @@ var subscriptions = {
 
     var success = function(res) {
       var searchInput = this.els.searchInput;
-      var display = '<tr class="removeSub" data-sub="' + searchInput.val() + '">' +
-                    '<td class="highlight">' + searchInput.val() + '</td>' +
+      var value = this.cleanInput(searchInput.val());
+      var display = '<tr class="removeSub" data-sub="' + value + '">' +
+                    '<td class="highlight">' + value + '</td>' +
                     '<td class="highlight"><span class="glyphicon glyphicon-remove"></span></td>' +
                     '</tr>';
       this.els.list.prepend(display);
-      this.data.subs.push(searchInput.val());
+      this.data.subs.push(value);
       this.data.loading = false;
       searchInput.val('');
       setTimeout(function() {
