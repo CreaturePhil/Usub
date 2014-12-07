@@ -1,20 +1,21 @@
 extends layout
 
 block content
-  if videos.length >= 1
-    for vid in videos
-      .col-md-3
-        a(href="#{vid.link}" title="#{vid.title}" data-no-instant)
-          img.img-responsive(src="#{vid.img}")
-          span.video-time= vid.time
-          if vid.title.length > 25
-            h5: a(href="#{vid.link}" title="#{vid.title}" data-no-instant).
-              #{vid.title.substr(0, 20)}...
-          else
-            h5: a(href="#{vid.link}" title="#{vid.title}" data-no-instant)= vid.title
-          h6 #{vid.viewCount} views
-            span.text-muted &nbsp;&nbsp;#{vid.publishedAt}
-        br
-  else
-    .text-center
-      h1 This channel has no content.
+  .row
+    if videos.length >= 1
+      for vid in videos
+        .col-md-3
+          a(href="#{vid.link}" title="#{vid.title}" data-no-instant)
+            img.img-responsive(src="#{vid.img}")
+            span.video-time= vid.time
+            if vid.title.length > 25
+              h5: a(href="#{vid.link}" title="#{vid.title}" data-no-instant).
+                #{vid.title.substr(0, 20)}...
+            else
+              h5: a(href="#{vid.link}" title="#{vid.title}" data-no-instant)= vid.title
+            h6 #{vid.viewCount} views
+              span.text-muted &nbsp;&nbsp;#{vid.publishedAt}
+          br
+    else
+      .text-center
+        h1 This channel has no content.
