@@ -19,7 +19,8 @@ module.exports = function(grunt) {
             'public/js/scripts.js'],
           'public/assets/js/scripts.js': [
             'public/js/settings.js', 
-            'public/js/subscriptions.js']
+            'public/js/subscriptions.js',
+            'public/js/search.js']
         }
       },
       css: {
