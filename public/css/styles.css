@@ -30,7 +30,7 @@
   display: inline-block;
   position: absolute;
   right: 1.4em;
-  bottom: 7.5em;
+  bottom: 7em;
   margin-top: 0;
   margin-right: 0;
 }
@@ -51,4 +51,22 @@
 
 .fa.fa-google-plus {
   top: 15%;
+}
+
+#instantclick-bar {
+  background-color: #d9230f; 
+}
+
+.navbar {
+  padding: 10px;
+}
+
+.navbar-brand .icon {
+  display: inline;
+}
+
+.icon {
+  width: 1.5em;
+  margin-right: 0.5em;
+  height: auto;
 }
