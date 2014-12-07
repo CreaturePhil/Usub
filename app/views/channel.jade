@@ -12,15 +12,9 @@ block content
               #{vid.title.substr(0, 20)}...
           else
             h5: a(href="#{vid.link}" title="#{vid.title}" data-no-instant)= vid.title
-          h6
-            | by&nbsp;
-            a(href="/user/#{vid.author}").
-              #{vid.author}
           h6 #{vid.viewCount} views
             span.text-muted &nbsp;&nbsp;#{vid.publishedAt}
+        br
   else
     .text-center
-      h1 
-        | You either have no subscriptions or your subscriptions aren't posting any new videos. Visit the 
-        a(href="/subscriptions") subscriptions 
-        | page to a new subscriptions.
+      h1 This channel has no content.

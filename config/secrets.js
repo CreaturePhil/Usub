@@ -25,6 +25,7 @@ module.exports = {
                   'settings',
                   'auth',
                   'subscriptions',
-                  'api' ]
+                  'api',
+                  'user' ]
 
 };

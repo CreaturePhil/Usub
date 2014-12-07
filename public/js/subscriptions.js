@@ -41,7 +41,7 @@ var subscriptions = {
   render: function(index, sub) {
     sub = this.cleanInput(sub);
     var display = '<tr class="removeSub" data-sub="' + sub + '">' +
-                  '<td>' + sub + '</td>' +
+                  '<td><a href="/user/' + sub + '">' + sub + '</a></td>' +
                   '<td><span class="glyphicon glyphicon-remove"></span></td>' +
                   '</tr>';
     this.els.list.append(display);
@@ -75,7 +75,7 @@ var subscriptions = {
       var searchInput = this.els.searchInput;
       var value = this.cleanInput(searchInput.val());
       var display = '<tr class="removeSub" data-sub="' + value + '">' +
-                    '<td class="highlight">' + value + '</td>' +
+                    '<td class="highlight"><a href="/user/' + value + '">' + value + '</a></td>' +
                     '<td class="highlight"><span class="glyphicon glyphicon-remove"></span></td>' +
                     '</tr>';
       this.els.list.prepend(display);

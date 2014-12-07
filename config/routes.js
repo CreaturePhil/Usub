@@ -66,6 +66,12 @@ router.route('/subscriptions')
 
 resource('/api/users', apiUsersController, router);
 
+router.route('/user/:name')
+  .get(mainController.youtubeChannel);
+
+router.route('/channel/:name')
+  .get(mainController.youtubeChannel);
+
 router.route('/:user')
   .get(userController.profile);
 
