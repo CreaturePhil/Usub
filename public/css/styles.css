@@ -70,3 +70,33 @@
   margin-right: 0.5em;
   height: auto;
 }
+
+#power {
+  width: 10em;
+  height: auto;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+.container {
+  min-height: 100%;
+  position: relative;
+}
+
+#content {
+  padding-bottom: 60px;
+}
+
+footer {
+  position: absolute;
+  bottom: 0;
+  height: 40px;
+  width: 100%;
+  border-top: 1px solid #ddd;
+  padding-top: 10px;
+}

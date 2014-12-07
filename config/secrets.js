@@ -26,6 +26,8 @@ module.exports = {
                   'auth',
                   'subscriptions',
                   'api',
-                  'user' ]
+                  'user',
+                  'channel',
+                  'privacy' ]
 
 };

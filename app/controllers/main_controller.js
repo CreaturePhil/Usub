@@ -115,8 +115,12 @@ module.exports = {
 
       videos = timeFrame.second.concat(timeFrame.minute, timeFrame.hour, timeFrame.day, timeFrame.week, timeFrame.month, timeFrame.year);
 
-      res.render('channel', { videos: videos, channel: user });
+      res.render('channel', { title: user, videos: videos, channel: user });
     });
+  },
+
+  privacy: function(req, res) {
+    res.render('privacy', { title: 'Privacy Policy' });
   }
 
 };
