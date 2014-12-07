@@ -1,8 +1,26 @@
 extends layout
 
 block content
-  .text-center
-    h1
-      | Welcome to 
-      b.text-primary Usub 
-      | alpha
+  .jumbotron.text-center
+    h1 Welcome to Usub
+    p Usub displays YouTube subscriptions in a grid.
+    a.btn.btn-lg.btn-primary(href="/signup") Sign up
+  .row.text-center
+    h1 Grid-like YouTube Subscription Feed
+    h4.text-muted Display your YouTube subscription feed as a grid for easier visibility.
+    img.img-responsive(src="/dashboard.png" alt="Dashboard Feed")
+    hr
+  .row.text-center
+    h1 Manage your YouTube Subscriptions
+    h4.text-muted Add or remove your Youtube channel subscriptions.
+    img.img-responsive(src="/subscriptions.png" alt="Manage Subscriptions")
+    hr
+  .row.text-center
+    h1 View Youtube channel individually.
+    h4.text-muted See most videos posted by the YouTube channel.
+    img.img-responsive(src="/channel.png" alt="YouTube Channel")
+    hr
+  .row.text-center.container-fluid
+    h1 What are your waiting for?
+    a.btn.btn-lg.btn-primary(href="/signup") Sign up today!
+    br
