@@ -31,7 +31,7 @@ var subscriptions = {
   },
 
   cleanInput: function(input) {
-    return $('<div/>').text(input).text();
+    return input.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;') ;
   },
 
   show: function(res) {
@@ -55,10 +55,11 @@ var subscriptions = {
       return;
     }
 
-    if (this.data.subs.indexOf(this.els.searchInput.val().toLowerCase()) >= 0) {
+    var input = this.cleanInput(this.els.searchInput.val().toLowerCase());
+    if (this.data.subs.indexOf(input) >= 0) {
       return $('.top-right').notify({
         type: 'danger',
-        message: { text: 'You already added ' + this.cleanInput(this.els.searchInput.val()) + '.'  }
+        message: { text: 'You already added ' + this.els.searchInput.val() + '.'  }
       }).show();
     }
 
@@ -78,7 +79,7 @@ var subscriptions = {
                     '<td class="highlight"><span class="glyphicon glyphicon-remove"></span></td>' +
                     '</tr>';
       this.els.list.prepend(display);
-      this.data.subs.push(value);
+      this.data.subs.push(value.toLowerCase());
       this.data.loading = false;
       searchInput.val('');
       setTimeout(function() {
