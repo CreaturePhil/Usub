@@ -14,7 +14,7 @@ module.exports = {
       async.map(users, function(userModel, cb) {
         user = userModel.toObject();
         user._id = userModel.getHash();
-        remove(user, 'email', 'password', '__v', 'resetPasswordToken', 'resetPasswordExpires');
+        remove(user, 'email', 'password', '__v', 'resetPasswordToken', 'resetPasswordExpires', 'token');
         cb(null, user);
       }, function(err, results) {
         if (err) return next(err);
@@ -28,7 +28,7 @@ module.exports = {
       if (err) return next(err);
       user = userModel.toObject();
       user._id = userModel.getHash();
-      remove(user, 'email', 'password', '__v', 'resetPasswordToken', 'resetPasswordExpires');
+      remove(user, 'email', 'password', '__v', 'resetPasswordToken', 'resetPasswordExpires', 'token');
       res.json(user);
     });
   },
