@@ -48,7 +48,9 @@ if (app.get('env') === 'development') {
   app.use(morgan('dev'));
 }
 
-app.use(favicon(__dirname + '/public/favicon.ico'));
+var week = 604800000;
+
+app.use(favicon(__dirname + '/public/favicon.ico', { maxAge: week }));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(methodOverride());
@@ -86,7 +88,7 @@ app.use(function(req, res, next) {
 });
 
 // static cache for one week
-app.use(express.static(path.join(__dirname, 'public'), { maxAge: 604800000 }));
+app.use(express.static(path.join(__dirname, 'public'), { maxAge: week }));
 
 // routes setup
 app.use('/', routes);
