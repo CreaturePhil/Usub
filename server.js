@@ -55,6 +55,7 @@ var sess = {
   saveUninitialized: false,
   secret: secrets.session,
   cookie: {
+    httpOnly: true,
     maxAge: week 
   },
   store: new MongoStore({
