@@ -71,7 +71,6 @@ if (app.get('env') === 'production') {
   app.use(lusca.hsts({ maxAge: 7776000000 })); // 90 days
   app.use(lusca.xssProtection(true));
   app.set('trust proxy', 1); // trust first proxy
-  sess.cookie.secure = true; // serve secure cookies
 }
 
 app.use(favicon(__dirname + '/public/favicon.ico', { maxAge: week }));
