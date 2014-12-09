@@ -72,9 +72,9 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
+app.use(lusca.csrf());
 
 if (app.get('env') === 'production') {
-  app.use(lusca.csrf());
   app.use(lusca.csp(csp));
   app.use(lusca.xframe('DENY'));
   app.use(lusca.p3p('ABCDEF'));
