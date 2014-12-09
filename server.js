@@ -50,29 +50,18 @@ if (app.get('env') === 'development') {
 
 var week = 604800000;
 
-app.use(favicon(__dirname + '/public/favicon.ico', { maxAge: week }));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(methodOverride());
-app.use(expressValidator({ customValidators: validators }));
-app.use(cookieParser());
-app.use(session({
+var sess = {
   resave: false,
   saveUninitialized: false,
   secret: secrets.session,
   cookie: {
-    secure: true,
     maxAge: week 
   },
   store: new MongoStore({
     url: secrets.db,
     auto_reconnect: true
   })
-}));
-app.use(passport.initialize());
-app.use(passport.session());
-app.use(flash());
-app.use(lusca.csrf());
+};
 
 if (app.get('env') === 'production') {
   app.use(lusca.csp(csp));
@@ -80,7 +69,21 @@ if (app.get('env') === 'production') {
   app.use(lusca.p3p('ABCDEF'));
   app.use(lusca.hsts({ maxAge: 7776000000 })); // 90 days
   app.use(lusca.xssProtection(true));
+  app.set('trust proxy', 1); // trust first proxy
+  sess.cookie.secure = true; // serve secure cookies
 }
+
+app.use(favicon(__dirname + '/public/favicon.ico', { maxAge: week }));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(methodOverride());
+app.use(expressValidator({ customValidators: validators }));
+app.use(cookieParser());
+app.use(session(sess));
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(flash());
+app.use(lusca.csrf());
 
 app.locals.env = app.get('env'); // Make NODE_ENV available in templates.
 app.locals.moment = moment; // Make moment function available in templates.
