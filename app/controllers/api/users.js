@@ -14,7 +14,7 @@ module.exports = {
       async.map(users, function(userModel, cb) {
         user = userModel.toObject();
         user._id = userModel.getHash();
-        remove(user, 'email', 'password', '__v', 'resetPasswordToken', 'resetPasswordExpires', 'tokens');
+        remove(user, 'email', 'password', '__v', 'resetPasswordToken', 'resetPasswordExpires');
         cb(null, user);
       }, function(err, results) {
         if (err) return next(err);

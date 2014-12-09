@@ -30,7 +30,6 @@ module.exports = function(grunt) {
             'public/bower_components/bootstrap-notify/css/bootstrap-notify.css',
             'public/bower_components/fontawesome/css/font-awesome.css',
             'public/bower_components/bootswatch/simplex/bootstrap.min.css',
-            'public/bower_components/bootstrap-social/bootstrap-social.css',
             'public/css/styles.css' ]
         }
       }

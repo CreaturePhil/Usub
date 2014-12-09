@@ -10,9 +10,6 @@ block content
         li(class=title==='Account'?'active':undefined)
           a(href="/settings/account") Account
             span.fa.fa-arrow-right.pull-right
-        li(class=title==='Google'?'active':undefined)
-          a(href="/settings/google") Google
-            span.fa.fa-arrow-right.pull-right
         li(class=title==='Password'?'active':undefined)
           a(href="/settings/password") Password
             span.fa.fa-arrow-right.pull-right
@@ -71,10 +68,3 @@ block content
             input.form-control(type="password" name="confirmPassword" required)
           .form-group
             button.btn.btn-primary(type="submit") Save Changes
-      if title === 'Google'
-        if user.google
-          .text-center
-            h1: a.text-danger(href='/settings/unlink/google' data-no-instant) Unlink your Google account
-        else
-          .text-center
-            h1: a(href='/auth/google' data-no-instant) Link your Google account
