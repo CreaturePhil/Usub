@@ -57,10 +57,13 @@ app.use(methodOverride());
 app.use(expressValidator({ customValidators: validators }));
 app.use(cookieParser());
 app.use(session({
-  resave: true,
-  saveUninitialized: true,
+  resave: false,
+  saveUninitialized: false,
   secret: secrets.session,
-  cookie: { secure: true },
+  cookie: {
+    secure: true,
+    maxAge: week 
+  },
   store: new MongoStore({
     url: secrets.db,
     auto_reconnect: true
