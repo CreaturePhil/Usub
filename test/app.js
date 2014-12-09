@@ -100,28 +100,6 @@ describe('GET /api/users', function() {
   });
 });
 
-describe('POST /signup', function() {
-  it('should return 500 Internal Server Error', function(done) {
-    request(app)
-      .post('/signup')
-      .field('username', 'test')
-      .field('email', 'test@test.com')
-      .field('password', 'testpass')
-      .field('confirmPassword', 'testpass')
-      .expect(500, done);
-  });
-});
-
-describe('POST /login', function() {
-  it('should return 500 Internal Server Error', function(done) {
-    request(app)
-      .post('/login')
-      .field('username', 'test')
-      .field('password', 'testpass')
-      .expect(500, done);
-  });
-});
-
 describe('NODE_ENV to production', function() {
   it('should be production env', function(done) {
     app.set('env', 'production');
