@@ -78,14 +78,15 @@ module.exports = {
       if (err || response.statusCode !== 200) return res.render('error', { message: 'Channel does not exist.' });
       var $ = cheerio.load(body);
       var videos = $('.channels-content-item').map(function(i, el) {
+        var $info = $(this).find('.yt-lockup-meta-info').find('li');
         return {
           img: 'https:' + $(this).find('img').attr('src'),
           link: 'https://www.youtube.com' + $(this).find('a').attr('href').split('&')[0],
           time: $(this).find('.video-time').text(),
           title: $(this).find('.yt-lockup-content a').text(),
           author: user,
-          viewCount: $(this).find('.yt-lockup-meta ul li').first().text(),
-          publishedAt: $(this).find('.yt-lockup-deemphasized-text').text()
+          viewCount: $info.first().text(),
+          publishedAt: $info.last().text()
         };
       }).get();
 
