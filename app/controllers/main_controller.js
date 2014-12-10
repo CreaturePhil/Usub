@@ -30,21 +30,14 @@ module.exports = {
       var timeFrame = { 'second': [], 'minute': [], 'hour': [], 'day': [], 'week': [] };
       var len = videos.length;
       var timeArray = Object.keys(timeFrame);
-      var timeLen = timeArray.length; 
-
-      function timeInsertion(time, content) {
-        if (content.publishedAt.indexOf(time) >= 0) {
-          if (time === 'week' && Number(content.publishedAt.match(re)[0]) > 2) return;
-          timeFrame[time].push(content);
-        } 
-      }
+      var timeLen = timeArray.length;
 
       while(len--) {
-        timeInsertion('second', videos[len]);
-        timeInsertion('minute', videos[len]);
-        timeInsertion('hour', videos[len]);
-        timeInsertion('day', videos[len]);
-        timeInsertion('week', videos[len]);
+        timeInsertion('second', videos[len], timeFrame);
+        timeInsertion('minute', videos[len], timeFrame);
+        timeInsertion('hour', videos[len], timeFrame);
+        timeInsertion('day', videos[len], timeFrame);
+        timeInsertion('week', videos[len], timeFrame);
       }
 
       while(timeLen--) {
@@ -82,10 +75,6 @@ module.exports = {
 
 };
 
-function timeSort(a, b) {
-  return Number(a.publishedAt.match(re)[0]) - Number(b.publishedAt.match(re)[0]);
-}
-
 function getContent($, user) {
   var $info = $(this).find('.yt-lockup-meta-info').find('li');
   return {
@@ -97,4 +86,15 @@ function getContent($, user) {
     viewCount: $info.first().text(),
     publishedAt: $info.last().text()
   };
+}
+
+function timeInsertion(time, content, timeFrame) {
+  if (content.publishedAt.indexOf(time) >= 0) {
+    if (time === 'week' && Number(content.publishedAt.match(re)[0]) > 2) return;
+    timeFrame[time].push(content);
+  } 
+}
+
+function timeSort(a, b) {
+  return Number(a.publishedAt.match(re)[0]) - Number(b.publishedAt.match(re)[0]);
 }
