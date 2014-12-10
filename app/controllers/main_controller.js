@@ -72,33 +72,6 @@ module.exports = {
         return getContent.call(this, $, user);
       }).get();
 
-      var timeFrame = { 'second': [], 'minute': [], 'hour': [], 'day': [], 'week': [], 'month': [], 'year': [] };
-      var len = videos.length;
-      var timeArray = Object.keys(timeFrame);
-      var timeLen = timeArray.length; 
-
-      function timeInsertion(time, content) {
-        if (content.publishedAt.indexOf(time) >= 0) {
-          timeFrame[time].push(content);
-        } 
-      }
-
-      while(len--) {
-        timeInsertion('second', videos[len]);
-        timeInsertion('minute', videos[len]);
-        timeInsertion('hour', videos[len]);
-        timeInsertion('day', videos[len]);
-        timeInsertion('week', videos[len]);
-        timeInsertion('month', videos[len]);
-        timeInsertion('year', videos[len]);
-      }
-
-      while(timeLen--) {
-        timeFrame[timeArray[timeLen]].sort(timeSort);
-      }
-
-      videos = timeFrame.second.concat(timeFrame.minute, timeFrame.hour, timeFrame.day, timeFrame.week, timeFrame.month, timeFrame.year);
-
       res.render('channel', { title: user, videos: videos, channel: user });
     });
   },
