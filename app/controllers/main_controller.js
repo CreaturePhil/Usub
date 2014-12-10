@@ -19,16 +19,7 @@ module.exports = {
         if (err || response.statusCode !== 200) return callback(); 
         var $ = cheerio.load(body);
         var content = $('.channels-content-item').map(function(i, el) {
-          var $info = $(this).find('.yt-lockup-meta-info').find('li');
-          return {
-            img: 'https:' + $(this).find('img').attr('src'),
-            link: 'https://www.youtube.com' + $(this).find('a').attr('href').split('&')[0],
-            time: $(this).find('.video-time').text(),
-            title: $(this).find('.yt-lockup-content a').text(),
-            author: user,
-            viewCount: $info.first().text(),
-            publishedAt: $info.last().text()
-          };
+          return getContent.call(this, $, user);
         }).get();
         videos = videos.concat(content);
         callback();
@@ -78,16 +69,7 @@ module.exports = {
       if (err || response.statusCode !== 200) return res.render('error', { message: 'Channel does not exist.' });
       var $ = cheerio.load(body);
       var videos = $('.channels-content-item').map(function(i, el) {
-        var $info = $(this).find('.yt-lockup-meta-info').find('li');
-        return {
-          img: 'https:' + $(this).find('img').attr('src'),
-          link: 'https://www.youtube.com' + $(this).find('a').attr('href').split('&')[0],
-          time: $(this).find('.video-time').text(),
-          title: $(this).find('.yt-lockup-content a').text(),
-          author: user,
-          viewCount: $info.first().text(),
-          publishedAt: $info.last().text()
-        };
+        return getContent.call(this, $, user);
       }).get();
 
       var timeFrame = { 'second': [], 'minute': [], 'hour': [], 'day': [], 'week': [], 'month': [], 'year': [] };
@@ -127,7 +109,19 @@ module.exports = {
 
 };
 
-
 function timeSort(a, b) {
   return Number(a.publishedAt.match(re)[0]) - Number(b.publishedAt.match(re)[0]);
+}
+
+function getContent($, user) {
+  var $info = $(this).find('.yt-lockup-meta-info').find('li');
+  return {
+    img: 'https:' + $(this).find('img').attr('src'),
+    link: 'https://www.youtube.com' + $(this).find('a').attr('href').split('&')[0],
+    time: $(this).find('.video-time').text(),
+    title: $(this).find('.yt-lockup-content a').text(),
+    author: user,
+    viewCount: $info.first().text(),
+    publishedAt: $info.last().text()
+  };
 }
