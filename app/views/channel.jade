@@ -13,7 +13,7 @@ block content
                 #{vid.title.substr(0, 20)}...
             else
               h5: a(href="#{vid.link}" title="#{vid.title}" data-no-instant)= vid.title
-            h6 #{vid.viewCount} views
+            h6 #{vid.viewCount}
               span.text-muted &nbsp;&nbsp;#{vid.publishedAt}
           br
     else
