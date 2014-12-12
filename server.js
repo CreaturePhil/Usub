@@ -14,6 +14,7 @@ var mongoose = require('mongoose');
 var passport = require('passport');
 var lusca = require('lusca');
 var moment = require('moment');
+var compress = require('compression');
 
 var routes = require('./config/routes');
 var secrets = require('./config/secrets');
@@ -73,6 +74,7 @@ if (app.get('env') === 'production') {
   app.set('trust proxy', 1); // trust first proxy
 }
 
+app.use(compress());
 app.use(favicon(__dirname + '/public/favicon.ico', { maxAge: week }));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -85,10 +87,14 @@ app.use(passport.session());
 app.use(flash());
 app.use(lusca.csrf());
 
-app.locals.env = app.get('env'); // Make NODE_ENV available in templates.
-app.locals.moment = moment; // Make moment function available in templates.
+/**
+ * Make local variables avaliable in templates.
+ */
+
+app.locals.env = app.get('env');
+app.locals.moment = moment;
 app.use(function(req, res, next) {
-  // Make user object available in templates.
+  res.locals.baseUrl = req.protocol + '://' + req.get('host') + '/';
   res.locals.user = req.user;
   next();
 });
