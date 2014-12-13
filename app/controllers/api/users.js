@@ -14,6 +14,7 @@ module.exports = {
       async.map(users, function(userModel, cb) {
         user = userModel.toObject();
         user._id = userModel.getHash();
+        user.subscriptions.sort();
         remove(user, 'email', 'password', '__v', 'resetPasswordToken', 'resetPasswordExpires');
         cb(null, user);
       }, function(err, results) {
@@ -36,7 +37,7 @@ module.exports = {
   update: function(req, res, next) {
     var query = hashids.decodeHex(req.params.id);
     if (req.body.addSub) {
-      var push = { $push: {'subscriptions': req.body.addSub} };
+      var push = { $push: {'subscriptions': String(req.body.addSub)} };
       User.findByIdAndUpdate(query, push, function(err) {
         if (err) return next(err);
         res.json({ success: 'Succesfully added ' + req.body.addSub + ' to subscriptions.' });
