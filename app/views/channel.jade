@@ -1,13 +1,32 @@
 extends layout
 
 block content
+  .clearfix
+    h4.pull-left: a(href="https://www.youtube.com/user/#{channel}/videos" data-no-instant)= channel
+    .dropdown.pull-right.input-sm
+      - var newest = 'Date added (newest - oldest)'
+      - var popular = 'Most Popular'
+      if !query
+        button.btn.btn-primary.dropdown-toggle(type="button" id="sort" data-toggle="dropdown" aria-expanded="true")
+          | #{newest}&nbsp;
+          span.caret
+      else
+        button.btn.btn-primary.dropdown-toggle(type="button" id="sort" data-toggle="dropdown" aria-expanded="true")
+          | #{popular}&nbsp;
+          span.caret
+      ul.dropdown-menu(role="menu" aria-labelledby="sort")
+        if !query
+          li: a(tabindex="-1" href="/user/#{channel}?sort=popular") #{popular}&nbsp;
+        else
+          li: a(tabindex="-1" href="/user/#{channel}") #{newest}&nbsp;
+  hr
   .row
     if videos.length >= 1
       for vid in videos
         .col-md-3
           a(href="#{vid.link}" title="#{vid.title}" data-no-instant)
             img.img-responsive(src="#{vid.img}")
-            span.video-time= vid.time
+            span.video-time.channel= vid.time
             if vid.title.length > 25
               h5: a(href="#{vid.link}" title="#{vid.title}" data-no-instant).
                 #{vid.title.substr(0, 20)}...

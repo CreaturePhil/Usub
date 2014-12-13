@@ -23,13 +23,6 @@
           button.btn.btn-default(type="submit")
             span.fa.fa-search
       ul.nav.navbar-nav.navbar-right
-        if channel
-          li
-            a(href="https://www.youtube.com/user/#{channel}/videos?view=0" target="_blank" data-no-instant)
-              | Go to 
-              span.text-primary= channel
-              | 's channel 
-              span.fa.fa-share
         if !user
           li
             a(href="/signup") Sign Up

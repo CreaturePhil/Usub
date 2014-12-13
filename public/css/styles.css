@@ -35,6 +35,10 @@
   margin-right: 0;
 }
 
+.channel {
+  bottom: 6.5em;
+}
+
 #searchSub {
   width: 90%;
 }

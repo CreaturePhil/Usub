@@ -58,6 +58,10 @@ module.exports = {
     var user = req.params.name;
     var link = yt_channel_startLink + user + yt_channel_endLink;
 
+    if (req.query.sort && req.query.sort.toLowerCase() === 'popular') {
+      link += '?flow=grid&sort=p&view=0';
+    }
+
     request(link, function(err, response, body) {
       if (err || response.statusCode !== 200) return res.render('error', { message: 'Channel does not exist.' });
       var $ = cheerio.load(body);
@@ -65,7 +69,7 @@ module.exports = {
         return getContent.call(this, $, user);
       }).get();
 
-      res.render('channel', { title: user, videos: videos, channel: user });
+      res.render('channel', { title: user, videos: videos, channel: user, query: req.query.sort });
     });
   },
 
