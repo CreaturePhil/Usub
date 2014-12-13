@@ -14,7 +14,9 @@ module.exports = {
       async.map(users, function(userModel, cb) {
         user = userModel.toObject();
         user._id = userModel.getHash();
-        user.subscriptions.sort();
+        user.subscriptions.sort(function(a, b) {
+          return b.toLowerCase() < a.toLowerCase();
+        });
         remove(user, 'email', 'password', '__v', 'resetPasswordToken', 'resetPasswordExpires');
         cb(null, user);
       }, function(err, results) {

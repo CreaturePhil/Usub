@@ -41,6 +41,9 @@ var subscriptions = {
   },
 
   show: function(res) {
+    res.subscriptions.sort(function(a, b) {
+      return b.toLowerCase() < a.toLowerCase();
+    });
     $.each(res.subscriptions, this.render.bind(this));
   },
 
