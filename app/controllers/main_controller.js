@@ -9,7 +9,7 @@ var yt_channel_endLink = '/videos?view=0';
 module.exports = {
 
   index: function(req, res, next) {
-    if (!req.isAuthenticated()) return res.render('index');
+    if (!req.isAuthenticated()) return res.render('index', { title: '' });
 
     var videos = [];
 
