@@ -1,26 +1,30 @@
 extends layout
 
 block content
-  .clearfix
-    h4.pull-left: a(href="https://www.youtube.com/user/#{channel}/videos" data-no-instant)= channel
-    .dropdown.pull-right.input-sm
-      - var newest = 'Date added (newest - oldest)'
-      - var popular = 'Most Popular'
-      if !query
-        button.btn.btn-primary.dropdown-toggle(type="button" id="sort" data-toggle="dropdown" aria-expanded="true")
-          | #{newest}&nbsp;
-          span.caret
-      else
-        button.btn.btn-primary.dropdown-toggle(type="button" id="sort" data-toggle="dropdown" aria-expanded="true")
-          | #{popular}&nbsp;
-          span.caret
-      ul.dropdown-menu(role="menu" aria-labelledby="sort")
-        if !query
-          li: a(tabindex="-1" href="/user/#{channel}?sort=popular") #{popular}&nbsp;
-        else
-          li: a(tabindex="-1" href="/user/#{channel}") #{newest}&nbsp;
-  hr
   .row
+    .col-md-12
+      ul.nav.nav-pills
+        li(role="presentation"): a(href="https://www.youtube.com/user/#{channel}/videos" data-no-instant): b= channel
+        li(role="presentation"): a(href="https://www.youtube.com/user/#{channel}/about" data-no-instant) About
+        li(role="presentation"): a(href="https://www.youtube.com/user/#{channel}/playlists" data-no-instant) Playlists
+        li(role="presentation"): a(href="https://www.youtube.com/user/#{channel}/channels" data-no-instant) Channels
+        li(role="presentation"): a(href="https://www.youtube.com/user/#{channel}/discussion" data-no-instant) Discussion
+        li.dropdown(role="presentation")
+          - var newest = 'Date added (newest - oldest)'
+          - var popular = 'Most Popular'
+          if !query
+            a.dropdown-toggle(href="#" data-toggle="dropdown" aria-expanded="false" data-no-instant)
+              | #{newest}&nbsp;
+              span.caret
+            ul.dropdown-menu(role="menu")
+              li: a(href="/user/#{channel}?sort=popular") #{popular}&nbsp;
+          else
+            a.dropdown-toggle(href="#" data-toggle="dropdown" role="button" aria-expanded="false")
+              | #{newest}&nbsp;
+              span.caret
+            ul.dropdown-menu(role="menu")
+              li: a(href="/user/#{channel}") #{newest}&nbsp;
+      hr
     if videos.length >= 1
       for vid in videos
         .col-md-3
