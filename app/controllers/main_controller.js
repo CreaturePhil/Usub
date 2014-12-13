@@ -1,6 +1,6 @@
 var async = require('async');
-var request = require('request');
 var cheerio = require('cheerio');
+var request = require('request');
 
 var re = /[0-9]{1,2}/;
 var yt_channel_startLink = 'https://www.youtube.com/user/';

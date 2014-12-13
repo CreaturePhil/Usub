@@ -1,30 +1,9 @@
-var express = require('express');
 var chai = require('chai');
-
-var debug = require('../lib/debug');
+var express = require('express');
 var resource = require('../lib/resource');
 
-var should = chai.should();
 var router = express.Router();
-
-describe('debugging a function', function() {
-  it('should console.log a function as toString', function(done) {
-    function sum(a, b) {
-      return a + b;
-    }
-    debug(sum);
-    done();
-  });
-
-  it('should console.log a object as json', function(done) {
-    var obj = {
-      a: 1,
-      b: 2
-    };
-    debug(obj);
-    done();
-  });
-});
+var should = chai.should();
 
 describe('resource routing', function() {
   it('should map resources', function(done) {

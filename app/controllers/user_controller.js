@@ -1,8 +1,8 @@
+var _ = require('lodash');
 var async = require('async');
-var passport = require('passport');
 var crypto = require('crypto');
 var nodemailer = require('nodemailer');
-var _ = require('lodash');
+var passport = require('passport');
 
 var User = require('../models/user');
 var secrets = require('../../config/secrets');

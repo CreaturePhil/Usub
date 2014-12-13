@@ -1,25 +1,24 @@
-var express = require('express');
-var path = require('path');
-var morgan = require('morgan');
-var errorhandler = require('errorhandler');
-var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var methodOverride = require('method-override');
-var session = require('express-session');
-var MongoStore = require('connect-mongo')({ session: session });
-var expressValidator = require('express-validator');
-var flash = require('express-flash');
-var favicon = require('serve-favicon');
-var mongoose = require('mongoose');
-var passport = require('passport');
-var lusca = require('lusca');
-var moment = require('moment');
 var compress = require('compression');
+var connectMongo = require('connect-mongo');
+var errorhandler = require('errorhandler');
+var express = require('express');
+var expressValidator = require('express-validator');
+var favicon = require('serve-favicon');
+var flash = require('express-flash');
+var lusca = require('lusca');
+var methodOverride = require('method-override');
+var moment = require('moment');
+var mongoose = require('mongoose');
+var morgan = require('morgan');
+var passport = require('passport');
+var path = require('path');
+var session = require('express-session');
 
+var csp = require('./lib/csp');
 var routes = require('./config/routes');
 var secrets = require('./config/secrets');
 var validators = require('./lib/validators');
-var csp = require('./lib/csp');
 
 var app = express();
 
@@ -32,10 +31,9 @@ mongoose.connection.on('error', function() {
   console.error('MongoDB Connection Error. Make sure MongoDB is running.');
 });
 
-
-/**
+/** 
  * App configuration
- */
+ */ 
 
 // view engine setup
 app.set('views', path.join(__dirname, 'app/views'));
@@ -50,6 +48,8 @@ if (app.get('env') === 'development') {
 }
 
 var week = 604800000;
+
+var MongoStore = connectMongo({ session: session });
 
 var sess = {
   resave: false,
@@ -80,7 +80,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(methodOverride());
 app.use(expressValidator({ customValidators: validators }));
-app.use(cookieParser());
 app.use(session(sess));
 app.use(passport.initialize());
 app.use(passport.session());

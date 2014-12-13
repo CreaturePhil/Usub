@@ -1,7 +1,7 @@
-var mongoose = require('mongoose');
+var Hashids = require('hashids');
 var bcrypt = require('bcrypt-nodejs');
 var crypto = require('crypto');
-var Hashids = require('hashids');
+var mongoose = require('mongoose');
 
 var secrets = require('../../config/secrets');
 

@@ -1,8 +1,10 @@
-var request = require('supertest');
 var chai = require('chai');
-var should = chai.should();
+var request = require('supertest');
+
 var app = require('../server.js');
 var User = require('../app/models/user');
+
+var should = chai.should();
 
 describe('GET /', function() {
   it('should return 200 OK', function(done) {
