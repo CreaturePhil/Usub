@@ -4,7 +4,13 @@ var subscriptions = {
     if ($('#subscriptions').length >= 1) {
       this.setCSRFToken($('meta[name="csrf-token"]').attr('content'));
 
-      $.getJSON('/api/users/' + this.els.addForm.data('id'), this.show.bind(this));
+      $.ajax('/api/users/' + this.els.addForm.data('id'), {
+        dataType: 'json',
+        success: this.show.bind(this),
+        complete: function() {
+          $('#spinner').hide();
+        }
+      });
       
       this.els.addForm.on('submit', this.update.bind(this)); 
       this.els.list.on('click', '.glyphicon-remove', this.remove);
