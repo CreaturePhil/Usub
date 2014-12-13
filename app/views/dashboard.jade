@@ -10,7 +10,7 @@ block content
             span.video-time= vid.time
             if vid.title.length > 25
               h5: a(href="#{vid.link}" title="#{vid.title}" data-no-instant).
-                #{vid.title.substr(0, 20)}...
+                #{vid.title.substr(0, 25)}...
             else
               h5: a(href="#{vid.link}" title="#{vid.title}" data-no-instant)= vid.title
             h6
