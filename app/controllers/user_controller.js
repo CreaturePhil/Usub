@@ -104,13 +104,8 @@ module.exports = {
   },
 
   logout: function(req, res) {
-    if (!req.user.google && !req.user.password && !req.user.username && !req.user.email) {
-      req.flash('info', { msg: 'You must set a new password before logging out or link to an Google account.' });
-      res.redirect('/settings/password');
-    } else {
-      req.logout();
-      res.redirect('/');
-    }
+    req.logout();
+    res.redirect('/');
   },
 
   forgotPassword: {

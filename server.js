@@ -21,6 +21,8 @@ var secrets = require('./config/secrets');
 var validators = require('./lib/validators');
 
 var app = express();
+var MongoStore = connectMongo({ session: session });
+var week = 604800000;
 
 /**
  * Connect to MongoDB.
@@ -47,24 +49,6 @@ if (app.get('env') === 'development') {
   app.use(morgan('dev'));
 }
 
-var week = 604800000;
-
-var MongoStore = connectMongo({ session: session });
-
-var sess = {
-  resave: false,
-  saveUninitialized: false,
-  secret: secrets.session,
-  cookie: {
-    httpOnly: true,
-    maxAge: week 
-  },
-  store: new MongoStore({
-    url: secrets.db,
-    auto_reconnect: true
-  })
-};
-
 if (app.get('env') === 'production') {
   app.use(lusca.csp(csp));
   app.use(lusca.xframe('DENY'));
@@ -80,7 +64,19 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(methodOverride());
 app.use(expressValidator({ customValidators: validators }));
-app.use(session(sess));
+app.use(session({
+  resave: false,
+  saveUninitialized: false,
+  secret: secrets.session,
+  cookie: {
+    httpOnly: true,
+    maxAge: week 
+  },
+  store: new MongoStore({
+    url: secrets.db,
+    auto_reconnect: true
+  })
+}));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
