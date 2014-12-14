@@ -20,7 +20,7 @@ block content
               li: a(href="/user/#{channel}?sort=popular") #{popular}&nbsp;
           else
             a.dropdown-toggle(href="#" data-toggle="dropdown" role="button" aria-expanded="false")
-              | #{newest}&nbsp;
+              | #{popular}&nbsp;
               span.caret
             ul.dropdown-menu(role="menu")
               li: a(href="/user/#{channel}") #{newest}&nbsp;
