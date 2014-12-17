@@ -42,7 +42,10 @@ block content
             br
       .text-center
         button.btn.btn-primary#load-more(data-page=sort) Load more
-        span#spinner.fa.fa-spinner.fa-spin.fa-2x
+        #spinner
+          button.btn.btn-default(disabled="disabled") 
+            span#spinner.fa.fa-spinner.fa-spin
+            | &nbsp;Loading...
     else
       .text-center
         h1 This channel has no content.
