@@ -5,19 +5,19 @@ $(function() {
 
     var $spinner = $('#spinner');
 
-    function init() {
+    var init = function() {
       $spinner.hide();
       $.ajaxPrefilter(function(options, _, xhr) {
         if (!xhr.crossDomain) {
           xhr.setRequestHeader('X-CSRF-Token', securityToken);
         }
       });
-    }
+    };
 
-    function updateUI() {
+    var updateUI = function() {
       $(this).hide();
       $spinner.show();
-    }
+    };
 
     $loadMore.on('click', function() {
       updateUI.call(this);
@@ -34,3 +34,4 @@ $(function() {
     init();
   }
 });
+
