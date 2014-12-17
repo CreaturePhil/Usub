@@ -41,7 +41,7 @@ block content
                 span.text-muted &nbsp;&nbsp;#{vid.publishedAt}
             br
       .text-center
-        button.btn.btn-primary#load-more Load more
+        button.btn.btn-primary#load-more(data-page=sort) Load more
         span#spinner.fa.fa-spinner.fa-spin.fa-2x
     else
       .text-center

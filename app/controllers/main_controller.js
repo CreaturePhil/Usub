@@ -57,9 +57,11 @@ module.exports = {
   youtubeChannel: function(req, res, next) {
     var user = req.params.name;
     var link = yt_channel_startLink + user + yt_channel_endLink;
+    var sort = 'newest';
 
     if (req.query.sort && req.query.sort.toLowerCase() === 'popular') {
       link += '?flow=grid&sort=p&view=0';
+      sort = 'popular';
     }
 
     request(link, function(err, response, body) {
@@ -69,7 +71,7 @@ module.exports = {
         return getContent.call(this, $, user);
       }).get();
 
-      res.render('channel', { title: user, videos: videos, channel: user, query: req.query.sort });
+      res.render('channel', { title: user, videos: videos, channel: user, query: req.query.sort, sort: sort });
     });
   },
 
