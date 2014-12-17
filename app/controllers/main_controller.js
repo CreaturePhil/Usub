@@ -75,6 +75,10 @@ module.exports = {
 
   privacy: function(req, res) {
     res.render('privacy', { title: 'Privacy Policy' });
+  },
+
+  loadMoreVideos: function(req, res) {
+
   }
 
 };
