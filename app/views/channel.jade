@@ -40,12 +40,6 @@ block content
               h6 #{vid.viewCount}
                 span.text-muted &nbsp;&nbsp;#{vid.publishedAt}
             br
-      .text-center
-        button.btn.btn-primary#load-more(data-page=sort) Load more
-        #spinner
-          button.btn.btn-default(disabled="disabled") 
-            span#spinner.fa.fa-spinner.fa-spin
-            | &nbsp;Loading...
     else
       .text-center
         h1 This channel has no content.

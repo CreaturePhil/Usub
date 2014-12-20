@@ -77,10 +77,6 @@ module.exports = {
 
   privacy: function(req, res) {
     res.render('privacy', { title: 'Privacy Policy' });
-  },
-
-  loadMoreVideos: function(req, res) {
-
   }
 
 };
@@ -89,7 +85,7 @@ function getContent($, user) {
   var $info = $(this).find('.yt-lockup-meta-info').find('li');
   return {
     img: 'https:' + $(this).find('img').attr('src'),
-    link: 'https://www.youtube.com' + $(this).find('a').attr('href').split('&')[0],
+    link: 'https://www.youtube.com' + $(this).find('a').attr('href'),
     time: $(this).find('.video-time').text(),
     title: $(this).find('.yt-lockup-content a').text(),
     author: user,

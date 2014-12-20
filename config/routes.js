@@ -55,9 +55,6 @@ router.route('/subscriptions')
 
 resource('/api/users', apiUsersController, router);
 
-router.route('/api/videos')
-  .post(mainController.loadMoreVideos);
-
 router.route('/user/:name')
   .get(mainController.youtubeChannel);
 
