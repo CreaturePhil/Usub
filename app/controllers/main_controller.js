@@ -101,7 +101,7 @@ function getContent($, user) {
 }
 
 /**
- * Adds a video into one of timeFrame's property.
+ * Adds a video into one of timeFrame's property (array).
  * timeFrame's property are time: second, minute, hour, day, month, year.
  * An exception is when a video will not be added if it is older than two weeks.
  *
