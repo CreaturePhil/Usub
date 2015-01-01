@@ -81,6 +81,12 @@ module.exports = {
 
 };
 
+/**
+ * Web scrape youtube channel page for videos.
+ *
+ * @param {Function} $
+ * @param {String} user
+ */
 function getContent($, user) {
   var $info = $(this).find('.yt-lockup-meta-info').find('li');
   return {
@@ -94,6 +100,15 @@ function getContent($, user) {
   };
 }
 
+/**
+ * Adds a video into one of timeFrame's property.
+ * timeFrame's property are time: second, minute, hour, day, month, year.
+ * An exception is when a video will not be added if it is older than two weeks.
+ *
+ * @param {String} time
+ * @param {String} content
+ * @param {Object} timeFrame
+ */
 function timeInsertion(time, content, timeFrame) {
   if (content.publishedAt.indexOf(time) >= 0) {
     if (time === 'week' && Number(content.publishedAt.match(re)[0]) > 2) return;
@@ -101,6 +116,10 @@ function timeInsertion(time, content, timeFrame) {
   } 
 }
 
+/**
+ * Sort two video's publishedAt property which is a String that contains time.
+ * Example - "4 hours ago"
+ */
 function timeSort(a, b) {
   return Number(a.publishedAt.match(re)[0]) - Number(b.publishedAt.match(re)[0]);
 }

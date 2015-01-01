@@ -59,6 +59,7 @@ module.exports = {
 
 /**
  * Delete one or more object's properties.
+ *
  * @param {Object} obj
  */
 function remove(obj) {
