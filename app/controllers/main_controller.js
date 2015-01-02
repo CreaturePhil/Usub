@@ -1,3 +1,4 @@
+var _ = require('lodash');
 var async = require('async');
 var cheerio = require('cheerio');
 var request = require('request');
@@ -28,21 +29,19 @@ module.exports = {
       if (err) return next(err);
 
       var timeFrame = { 'second': [], 'minute': [], 'hour': [], 'day': [], 'week': [] };
-      var len = videos.length;
-      var timeArray = Object.keys(timeFrame);
-      var timeLen = timeArray.length;
 
-      while(len--) {
-        timeInsertion('second', videos[len], timeFrame);
-        timeInsertion('minute', videos[len], timeFrame);
-        timeInsertion('hour', videos[len], timeFrame);
-        timeInsertion('day', videos[len], timeFrame);
-        timeInsertion('week', videos[len], timeFrame);
-      }
-
-      while(timeLen--) {
-        timeFrame[timeArray[timeLen]].sort(timeSort);
-      }
+      // Find at what time frame each video was published at then sorting the videos at each timeFrame.
+      // Limit of displaying videos is 2 weeks.
+      _.forEach(['second', 'minute', 'hour', 'week'], function(time) {
+        timeFrame[time] = _.filter(videos, function(video) {
+          if (time === 'week') {
+            return video.publishedAt.indexOf('week') >= 0 && Number(video.publishedAt.match(re)[0]) <= 2;
+          }
+          return video.publishedAt.indexOf(time) >= 0;
+        }).sort(function(a, b) {
+          return Number(a.publishedAt.match(re)[0]) - Number(b.publishedAt.match(re)[0]);
+        });
+      });
 
       videos = timeFrame.second.concat(timeFrame.minute, timeFrame.hour, timeFrame.day, timeFrame.week);
 
@@ -86,6 +85,7 @@ module.exports = {
  *
  * @param {Function} $
  * @param {String} user
+ * @return {Object} Video infomation
  */
 function getContent($, user) {
   var $info = $(this).find('.yt-lockup-meta-info').find('li');
@@ -98,28 +98,4 @@ function getContent($, user) {
     viewCount: $info.first().text(),
     publishedAt: $info.last().text()
   };
-}
-
-/**
- * Adds a video into one of timeFrame's property (array).
- * timeFrame's property are time: second, minute, hour, day, month, year.
- * An exception is when a video will not be added if it is older than two weeks.
- *
- * @param {String} time
- * @param {String} content
- * @param {Object} timeFrame
- */
-function timeInsertion(time, content, timeFrame) {
-  if (content.publishedAt.indexOf(time) >= 0) {
-    if (time === 'week' && Number(content.publishedAt.match(re)[0]) > 2) return;
-    timeFrame[time].push(content);
-  } 
-}
-
-/**
- * Sort two video's publishedAt property which is a String that contains time.
- * Example - "4 hours ago"
- */
-function timeSort(a, b) {
-  return Number(a.publishedAt.match(re)[0]) - Number(b.publishedAt.match(re)[0]);
 }
