@@ -32,7 +32,7 @@ module.exports = {
 
       // Find at what time frame each video was published at then sorting the videos at each timeFrame.
       // Limit of displaying videos is 2 weeks.
-      _.forEach(['second', 'minute', 'hour', 'week'], function(time) {
+      _.forEach(['second', 'minute', 'hour', 'day', 'week'], function(time) {
         timeFrame[time] = _.filter(videos, function(video) {
           if (time === 'week') {
             return video.publishedAt.indexOf('week') >= 0 && Number(video.publishedAt.match(re)[0]) <= 2;
