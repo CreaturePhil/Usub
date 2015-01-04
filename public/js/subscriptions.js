@@ -45,6 +45,7 @@ var subscriptions = {
       return b.toLowerCase() < a.toLowerCase();
     });
     $.each(res.subscriptions, this.render.bind(this));
+    this.els.searchInput.attr('placeholder', 'Add a subscription (Total subscriptions: ' + this.data.subs.length + ')');
   },
 
   render: function(index, sub) {
@@ -53,6 +54,7 @@ var subscriptions = {
                   '<td><a href="/user/' + sub + '">' + sub + '</a></td>' +
                   '<td><span class="glyphicon glyphicon-remove"></span></td>' +
                   '</tr>';
+
     this.els.list.append(display);
     this.data.subs.push(sub.toLowerCase());
   },
@@ -89,6 +91,7 @@ var subscriptions = {
                     '</tr>';
       this.els.list.prepend(display);
       this.data.subs.push(value.toLowerCase());
+      this.els.searchInput.attr('placeholder', 'Add a subscription (Total subscriptions: ' + this.data.subs.length + ')');
       this.data.loading = false;
       searchInput.val('');
       setTimeout(function() {
@@ -115,6 +118,7 @@ var subscriptions = {
         var removeSub = subscriptions.tempEl.closest('.removeSub');
         delete subscriptions.tempEl;
         this.data.subs.splice(this.data.subs.indexOf(removeSub.data('sub')), 1);
+        this.els.searchInput.attr('placeholder', 'Add a subscription (Total subscriptions: ' + this.data.subs.length + ')');
         removeSub.remove();
       },
       error: function(err, status, msg) {
