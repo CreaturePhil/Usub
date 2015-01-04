@@ -85,7 +85,7 @@ module.exports = {
  *
  * @param {Function} $
  * @param {String} user
- * @return {Object} Video infomation
+ * @returns {Object} video infomation
  */
 function getContent($, user) {
   var $info = $(this).find('.yt-lockup-meta-info').find('li');
