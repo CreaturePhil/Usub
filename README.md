@@ -13,6 +13,8 @@ $ grunt && npm start
 
 ## License
 
+The MIT License (MIT)
+
 Copyright (c) 2015 Philip La
 
 Permission is hereby granted, free of charge, to any person
