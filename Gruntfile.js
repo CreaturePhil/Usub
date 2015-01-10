@@ -16,10 +16,11 @@ module.exports = function(grunt) {
             'public/bower_components/bootstrap/dist/js/bootstrap.js',
             'public/bower_components/bootstrap-notify/js/bootstrap-notify.js',
             'public/bower_components/instantclick/instantclick.js',
-            'public/js/scripts.js'],
+            'public/bower_components/react/react.min.js',
+            'public/js/instantclick-start.js'],
           'public/assets/js/scripts.js': [
+            'public/js/build/subscription.js',
             'public/js/settings.js', 
-            'public/js/subscriptions.js',
             'public/js/search.js']
         }
       },
