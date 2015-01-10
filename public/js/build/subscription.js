@@ -22,6 +22,9 @@ var SubscriptionBox = React.createClass({displayName: "SubscriptionBox",
       },
     })
     .success(function(data) {
+      data.subscriptions.sort(function(a, b) {
+        return b.toLowerCase() < a.toLowerCase();
+      });
       this.setState({data: data.subscriptions}); 
     }.bind(this))
   },
@@ -40,12 +43,18 @@ var SubscriptionBox = React.createClass({displayName: "SubscriptionBox",
         console.error(this.props.url, status, err.toString()); 
       });
   },
-  handleSubscriptionSubmit: function(sub) {
-    this.state.data.push(sub);
+  handleSubscriptionSubmit: function(sub, getDOMNode) {
+    var subs = this.state.data;
+    if (subs.indexOf(sub.toLowerCase()) >= 0) {
+      return $('.top-right').notify({
+        type: 'danger',
+        message: { text: 'You already added ' + sub + '.'  }
+      }).show();
+    }
+    getDOMNode().value = '';
     this.handleSubscriptionEvent('addSub', sub);
   },
   handleSubscriptionRemove: function(sub) {
-    this.state.data.splice(sub, 1);
     this.handleSubscriptionEvent('removeSub', sub);
   },
   render: function() {
@@ -61,8 +70,8 @@ var SubscriptionBox = React.createClass({displayName: "SubscriptionBox",
 var SubscriptionForm = React.createClass({displayName: "SubscriptionForm",
   handleSubmit: function(e) {
     e.preventDefault(); 
-    this.props.onSubscriptionSubmit(this.refs.name.getDOMNode().value.trim());
-    this.refs.name.getDOMNode().value = '';
+    this.props.onSubscriptionSubmit(this.refs.name.getDOMNode().value.trim(),
+                                    this.refs.name.getDOMNode);
   },
   render: function() {
     return (React.createElement("form", {className: "subscriptionForm", onSubmit: this.handleSubmit}, 
