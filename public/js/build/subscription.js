@@ -27,7 +27,7 @@ var SubscriptionBox = React.createClass({displayName: "SubscriptionBox",
     }.bind(this))
   },
   componentDidMount: function() {
-    this.setCSRFToken($('meta[name="csrf-token"]').attr('content'));
+    this.setCSRFToken($('#csrf').attr('content'));
     this.loadSubscriptionsFromServer();
   },
   handleSubscriptionEvent: function(type, sub) {
