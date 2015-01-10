@@ -26,25 +26,32 @@ var SubscriptionBox = React.createClass({
     this.setCSRFToken($('meta[name="csrf-token"]').attr('content'));
     this.loadSubscriptionsFromServer();
   },
-  handleSubscriptionSubmit: function(sub) {
-    $.ajax(this.props.url, { type: 'PUT', dataType: 'json', data: { 'addSub': sub } })
+  handleSubscriptionEvent: function(type, sub) {
+    var data = {};
+    data[type] = sub;
+    $.ajax(this.props.url, { type: 'PUT', dataType: 'json', data: data })
       .success(function(data) {
-        console.log(data);
         this.loadSubscriptionsFromServer();
       }.bind(this))
       .error(function(xhr, status, err) {
         console.error(this.props.url, status, err.toString()); 
       });
   },
+  handleSubscriptionSubmit: function(sub) {
+    this.handleSubscriptionEvent('addSub', sub);
+  },
+  handleSubscriptionRemove: function(sub) {
+    console.log(sub);
+    this.handleSubscriptionEvent('removeSub', sub);
+  },
   render: function() {
-    console.log(this.state.data);
     return (
       <div className="subscriptionBox">
         <SubscriptionForm onSubscriptionSubmit={ this.handleSubscriptionSubmit } />
         <h1 id="spinner" className="text-center">
           <span className="fa fa-spinner fa-spin fa-2x"></span>
         </h1>
-        <SubscriptionList data={ this.state.data } />
+        <SubscriptionList data={ this.state.data } onSubscriptionRemove= { this.handleSubscriptionRemove } />
       </div>
     );
   }
@@ -68,12 +75,16 @@ var SubscriptionForm = React.createClass({
 });
 
 var SubscriptionList = React.createClass({
+  passSubscriptionRemove: function(sub) {
+    this.props.onSubscriptionRemove(sub);
+  },
   render: function() {
     var subNodes = this.props.data.map(function(sub) { 
       return (
-        <Subscription name={ sub } key={ sub }></Subscription>
+        <Subscription name={ sub } onSubscriptionRemove={ this.passSubscriptionRemove }>
+        </Subscription>
       );
-    });
+    }.bind(this));
     return (
       <table className="table table-striped text-center subscriptionList">
         <tbody>
@@ -85,11 +96,14 @@ var SubscriptionList = React.createClass({
 });
 
 var Subscription = React.createClass({
+  handleClick: function() {
+    this.props.onSubscriptionRemove(this.props.name);
+  },
   render: function() {
     return (
       <tr className="subscription">
         <td><a href={ '/user/' + this.props.name }>{ this.props.name }</a></td>     
-        <td><span className="glyphicon glyphicon-remove"></span></td>
+        <td><span className="glyphicon glyphicon-remove" onClick={ this.handleClick }></span></td>
       </tr>
     );
   }
