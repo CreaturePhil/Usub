@@ -1,7 +1,10 @@
+var $spinner = $('#spinner');
+var subscriptionsEl = document.getElementById('subscriptions');
+
 // DON'T FORGET TO EMULATE IT SO IT FEELS FAST
 var SubscriptionBox = React.createClass({displayName: "SubscriptionBox",
   getInitialState: function() {
-    return { data: [] };
+    return {data: []};
   },
   setCSRFToken: function(securityToken) {
     $.ajaxPrefilter(function(options, _, xhr) {
@@ -14,12 +17,13 @@ var SubscriptionBox = React.createClass({displayName: "SubscriptionBox",
     $.ajax(this.props.url, {
       dataType: 'json',
       complete: function() { 
-        var $spinner = $('#spinner');
-        if ($spinner.length >= 0) $spinner.hide();
+        if ($spinner.length >= 0) {
+          $spinner.hide(); 
+        }
       },
     })
     .success(function(data) {
-        this.setState({ data: data.subscriptions }); 
+      this.setState({data: data.subscriptions}); 
     }.bind(this))
   },
   componentDidMount: function() {
@@ -29,7 +33,7 @@ var SubscriptionBox = React.createClass({displayName: "SubscriptionBox",
   handleSubscriptionEvent: function(type, sub) {
     var data = {};
     data[type] = sub;
-    $.ajax(this.props.url, { type: 'PUT', dataType: 'json', data: data })
+    $.ajax(this.props.url, {type: 'PUT', dataType: 'json', data: data})
       .success(function(data) {
         this.loadSubscriptionsFromServer();
       }.bind(this))
@@ -41,17 +45,13 @@ var SubscriptionBox = React.createClass({displayName: "SubscriptionBox",
     this.handleSubscriptionEvent('addSub', sub);
   },
   handleSubscriptionRemove: function(sub) {
-    console.log(sub);
     this.handleSubscriptionEvent('removeSub', sub);
   },
   render: function() {
     return (
       React.createElement("div", {className: "subscriptionBox"}, 
-        React.createElement(SubscriptionForm, {onSubscriptionSubmit:  this.handleSubscriptionSubmit}), 
-        React.createElement("h1", {id: "spinner", className: "text-center"}, 
-          React.createElement("span", {className: "fa fa-spinner fa-spin fa-2x"})
-        ), 
-        React.createElement(SubscriptionList, {data:  this.state.data, onSubscriptionRemove:  this.handleSubscriptionRemove})
+        React.createElement(SubscriptionForm, {onSubscriptionSubmit: this.handleSubscriptionSubmit}), 
+        React.createElement(SubscriptionList, {data: this.state.data, onSubscriptionRemove: this.handleSubscriptionRemove})
       )
     );
   }
@@ -64,7 +64,7 @@ var SubscriptionForm = React.createClass({displayName: "SubscriptionForm",
     this.refs.name.getDOMNode().value = '';
   },
   render: function() {
-    return (React.createElement("form", {className: "subscriptionForm", onSubmit:  this.handleSubmit}, 
+    return (React.createElement("form", {className: "subscriptionForm", onSubmit: this.handleSubmit}, 
       React.createElement("div", {className: "form-group"}, 
         React.createElement("input", {id: "searchSub", type: "text", placeholder: "Add a subscription", ref: "name", required: true}), 
         ' ', 
@@ -81,14 +81,14 @@ var SubscriptionList = React.createClass({displayName: "SubscriptionList",
   render: function() {
     var subNodes = this.props.data.map(function(sub) { 
       return (
-        React.createElement(Subscription, {name: sub, onSubscriptionRemove:  this.passSubscriptionRemove}
+        React.createElement(Subscription, {name: sub, onSubscriptionRemove: this.passSubscriptionRemove}
         )
       );
     }.bind(this));
     return (
       React.createElement("table", {className: "table table-striped text-center subscriptionList"}, 
         React.createElement("tbody", null, 
-          subNodes 
+          subNodes
         )
       )
     );
@@ -102,15 +102,14 @@ var Subscription = React.createClass({displayName: "Subscription",
   render: function() {
     return (
       React.createElement("tr", {className: "subscription"}, 
-        React.createElement("td", null, React.createElement("a", {href:  '/user/' + this.props.name},  this.props.name)), 
-        React.createElement("td", null, React.createElement("span", {className: "glyphicon glyphicon-remove", onClick:  this.handleClick}))
+        React.createElement("td", null, React.createElement("a", {href: '/user/' + this.props.name}, this.props.name)), 
+        React.createElement("td", null, React.createElement("span", {className: "glyphicon glyphicon-remove", onClick: this.handleClick}))
       )
     );
   }
 });
 
-var subscriptionsEl = document.getElementById('subscriptions');
 React.render(
-  React.createElement(SubscriptionBox, {url:  '/api/users/' + subscriptionsEl.getAttribute('data-id')}),
+  React.createElement(SubscriptionBox, {url: '/api/users/' + subscriptionsEl.getAttribute('data-id')}),
   subscriptionsEl
 );
