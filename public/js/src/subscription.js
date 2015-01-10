@@ -1,5 +1,6 @@
 var $spinner = $('#spinner');
 var subscriptionsEl = document.getElementById('subscriptions');
+var id = subscriptionsEl ? subscriptionsEl.getAttribute('data-id') : '';
 
 var SubscriptionBox = React.createClass({
   getInitialState: function() {
@@ -124,6 +125,6 @@ var Subscription = React.createClass({
 });
 
 React.render(
-  <SubscriptionBox url={'/api/users/' + subscriptionsEl.getAttribute('data-id')} />,
+  <SubscriptionBox url={'/api/users/' + id} />,
   subscriptionsEl
 );
