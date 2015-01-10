@@ -60,7 +60,8 @@ var SubscriptionForm = React.createClass({
     return (<form className="subscriptionForm" onSubmit={ this.handleSubmit }>
       <div className="form-group">
         <input id="searchSub" type="text" placeholder="Add a subscription" ref="name" required />
-        <button type="submit" className="btn btn-primary"> Add</button>
+        { ' ' }
+        <button type="submit" className="btn btn-primary">Add</button>
       </div>
     </form>);
   }
@@ -75,7 +76,9 @@ var SubscriptionList = React.createClass({
     });
     return (
       <table className="table table-striped text-center subscriptionList">
-        { subNodes }
+        <tbody>
+          { subNodes }
+        </tbody>
       </table>
     );
   }
