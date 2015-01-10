@@ -12,3 +12,6 @@ public/bower_components
 
 # Client-side css and javascript
 public/assets
+
+# React Components
+.module-cache

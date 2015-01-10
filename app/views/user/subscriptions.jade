@@ -1,13 +1,4 @@
 extends ../layout
 
 block content
-  #subscriptions
-    form#addSub(action="/api/users/#{user.getHash()}" method="put" data-id="#{user.getHash()}")
-      input(type="hidden" name="_csrf" value=_csrf)
-      .form-group
-        input#searchSub(type="text" placeholder="Add a subscription" required)
-        | &nbsp;
-        button.btn.btn-primary(type="submit") Add
-    h1.text-center#spinner
-      span.fa.fa-spinner.fa-spin.fa-2x
-    table#subsList.table.table-striped.text-center
+  #subscriptions(data-id="#{user.getHash()}")

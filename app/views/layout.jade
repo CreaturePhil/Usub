@@ -47,16 +47,16 @@ html(lang="en-us")
           | &copy; 2015 Usub &middot; YouTube logo is a trademark of Google Inc. &middot; 
           a(href="/privacy") Privacy Policy 
 
-    script(src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js" data-no-instant)
     if env === 'development'
+      script(src="/bower_components/jquery/dist/jquery.min.js" data-no-instant)
       script(src="/bower_components/bootstrap/dist/js/bootstrap.min.js" data-no-instant)
       script(src="/bower_components/bootstrap-notify/js/bootstrap-notify.js" data-no-instant)
       script(src="/bower_components/instantclick/instantclick.js" data-no-instant)
-      script(src="/js/settings.js")
-      script(src="/js/subscriptions.js")
-      script(src="/js/search.js")
+      script(src="/bower_components/react/react.js" data-no-instant)
       script(src="/js/scripts.js" data-no-instant)
+      script(src="/js/build/subscription.js")
 
     if env === 'production'
+      script(src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js" data-no-instant)
       script(src="/assets/js/main.min.js" data-no-instant)
       script(src="/assets/js/scripts.min.js")
