@@ -1,7 +1,6 @@
 var $spinner = $('#spinner');
 var subscriptionsEl = document.getElementById('subscriptions');
 
-// DON'T FORGET TO EMULATE IT SO IT FEELS FAST
 var SubscriptionBox = React.createClass({
   getInitialState: function() {
     return {data: []};
@@ -42,9 +41,11 @@ var SubscriptionBox = React.createClass({
       });
   },
   handleSubscriptionSubmit: function(sub) {
+    this.state.data.push(sub);
     this.handleSubscriptionEvent('addSub', sub);
   },
   handleSubscriptionRemove: function(sub) {
+    this.state.data.splice(sub, 1);
     this.handleSubscriptionEvent('removeSub', sub);
   },
   render: function() {
