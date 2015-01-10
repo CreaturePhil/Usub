@@ -23,7 +23,7 @@ var SubscriptionBox = React.createClass({
       },
     })
     .success(function(data) {
-      data.subscriptions.map(function(a, b) {
+      data.subscriptions.sort(function(a, b) {
         if (a.toLowerCase() < b.toLowerCase()) return -1;
         if (a.toLowerCase() > b.toLowerCase()) return 1;
         return 0;
