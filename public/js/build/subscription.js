@@ -50,7 +50,7 @@ var SubscriptionBox = React.createClass({displayName: "SubscriptionBox",
   render: function() {
     return (
       React.createElement("div", {className: "subscriptionBox"}, 
-        React.createElement(SubscriptionForm, {onSubscriptionSubmit: this.handleSubscriptionSubmit}), 
+        React.createElement(SubscriptionForm, {data: this.state.data, onSubscriptionSubmit: this.handleSubscriptionSubmit}), 
         React.createElement(SubscriptionList, {data: this.state.data, onSubscriptionRemove: this.handleSubscriptionRemove})
       )
     );
@@ -66,7 +66,11 @@ var SubscriptionForm = React.createClass({displayName: "SubscriptionForm",
   render: function() {
     return (React.createElement("form", {className: "subscriptionForm", onSubmit: this.handleSubmit}, 
       React.createElement("div", {className: "form-group"}, 
-        React.createElement("input", {id: "searchSub", type: "text", placeholder: "Add a subscription", ref: "name", required: true}), 
+        React.createElement("input", {id: "searchSub", 
+               type: "text", 
+               placeholder: 'Add a subscription (Total Subscriptions: ' + this.props.data.length + ')', 
+               ref: "name", 
+               required: true}), 
         ' ', 
         React.createElement("button", {type: "submit", className: "btn btn-primary"}, "Add")
       )
