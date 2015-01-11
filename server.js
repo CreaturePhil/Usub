@@ -14,6 +14,7 @@ var morgan = require('morgan');
 var passport = require('passport');
 var path = require('path');
 var session = require('express-session');
+var stylus = require('stylus');
 
 var csp = require('./lib/csp');
 var routes = require('./config/routes');
@@ -40,6 +41,8 @@ mongoose.connection.on('error', function() {
 // view engine setup
 app.set('views', path.join(__dirname, 'app/views'));
 app.set('view engine', 'jade');
+
+app.use(stylus.middleware(path.join(__dirname, 'public')));
 
 if (app.get('env') === 'development') {
   // don't minify html

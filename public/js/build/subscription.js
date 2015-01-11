@@ -84,7 +84,6 @@ var SubscriptionForm = React.createClass({displayName: "SubscriptionForm",
                placeholder: 'Add a subscription (Total Subscriptions: ' + this.props.data.length + ')', 
                ref: "name", 
                required: true}), 
-        ' ', 
         React.createElement("button", {type: "submit", className: "btn btn-primary"}, "Add")
       )
     ));

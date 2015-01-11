@@ -1,106 +1,87 @@
-.navbar-nav img {
-  width: 30px;
-  height: 30px;
-  margin: -15px 15px -15px;
-}
-
-.avatar {
-  width: 10em;
-  height: auto;
-}
-
-.highlight {
-  background: #FFDC00;
-  transition: opacity 500 ease-in-out;
-}
-
-.video-time {
-  padding: 0 4px;
-  font-weight: bold;
-  font-size: 11px;
-  background-color: #000;
-  color: #fff!important;
-  height: 14px;
-  line-height: 14px;
-  opacity: .75;
-  filter: alpha(opacity=75);
-  display: -moz-inline-stack;
-  vertical-align: top;
-  zoom: 1;
-  display: inline-block;
-  position: absolute;
-  right: 1.4em;
-  bottom: 7em;
-  margin-top: 0;
-  margin-right: 0;
-}
-
-.channel {
-  bottom: 6.5em;
-}
-
-#searchSub {
-  width: 90%;
-}
-
-@media (max-width: 580px) {
-  #searchSub {
-    width: 80%;
-  }
-}
-
-.glyphicon-remove {
-  cursor: pointer;
-}
-
-.fa.fa-google-plus {
-  top: 15%;
-}
-
-#instantclick-bar {
-  background-color: #d9230f; 
-}
-
-.navbar {
-  padding: 10px;
-}
-
-.navbar-brand .icon {
-  display: inline;
-}
-
-.icon {
-  width: 1.5em;
-  margin-right: 0.5em;
-  height: auto;
-}
-
-#power {
-  width: 10em;
-  height: auto;
-}
-
 html,
 body {
   margin: 0;
   padding: 0;
   height: 100%;
+  overflow-x: hidden;
 }
-
 .container {
-  min-height: 100%;
   position: relative;
+  min-height: 100%;
 }
-
 #content {
   padding-bottom: 60px;
 }
-
 footer {
   position: absolute;
   bottom: 0;
-  height: 40px;
   width: 100%;
-  border-top: 1px solid #ddd;
+  height: 40px;
   padding-top: 10px;
+  border-top: 1px solid #ddd;
+}
+.navbar {
+  padding: 10px;
+}
+.navbar-nav img {
+  margin: -15px 15px -15px;
+  width: 30px;
+  height: 30px;
+}
+.navbar-brand .logo {
+  display: inline;
+}
+.logo {
+  margin-right: 0.5em;
+  width: 1.5em;
+  height: auto;
+}
+.avatar {
+  width: 10em;
+  height: auto;
+}
+#instantclick-bar {
+  background-color: #d9230f;
+}
+.video-time {
+  position: absolute;
+  right: 1.4em;
+  bottom: 7em;
+  display: inline-block;
+  height: 14px;
+  margin-top: 0;
+  margin-right: 0;
+  padding: 0 4px;
+  font-weight: bold;
+  font-size: 11px;
+  line-height: 14px;
+  color: #fff;
+  background-color: #000;
+  opacity: 0.75;
+  vertical-align: top;
+  zoom: 1;
+}
+@media (max-width: 990px) {
+  .video-time {
+    bottom: 6em;
+  }
+}
+#searchSub {
+  margin-right: 1em;
+  width: 90%;
+  height: 30px;
+  font-size: 15px;
+  vertical-align: middle;
+}
+@media (max-width: 720px) {
+  #searchSub {
+    padding: 0.5em;
+    width: 70%;
+  }
+}
+.glyphicon-remove {
+  cursor: pointer;
+}
+.channel {
+  bottom: 6.5em;
 }
