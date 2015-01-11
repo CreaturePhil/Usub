@@ -3,7 +3,6 @@ body {
   margin: 0;
   padding: 0;
   height: 100%;
-  overflow-x: hidden;
 }
 .container {
   position: relative;
@@ -19,6 +18,11 @@ footer {
   height: 40px;
   padding-top: 10px;
   border-top: 1px solid #ddd;
+}
+@media (max-width: 990px) {
+  footer {
+    width: 90%;
+  }
 }
 .navbar {
   padding: 10px;
