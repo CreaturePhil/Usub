@@ -23,7 +23,7 @@
     "express": "^4.10.0",
     "express-flash": "0.0.2",
     "express-session": "^1.10.1",
-    "express-validator": "^2.6.0",
+    "express-validator": "^2.8.0",
     "hashids": "^1.0.1",
     "jade": "^1.7.0",
     "lodash": "^2.4.1",
