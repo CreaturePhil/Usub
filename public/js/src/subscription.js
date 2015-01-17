@@ -29,7 +29,7 @@ var SubscriptionBox = React.createClass({
         return 0;
       });
       this.setState({data: data.subscriptions}); 
-    }.bind(this))
+    }.bind(this));
   },
   componentDidMount: function() {
     this.setCSRFToken($('#csrf').attr('content'));

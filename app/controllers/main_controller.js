@@ -30,7 +30,7 @@ module.exports = {
 
       var timeFrame = { 'second': [], 'minute': [], 'hour': [], 'day': [], 'week': [] };
 
-      // Find at what time frame each video was published at then sorting the videos at each timeFrame.
+      // Find at what time frame each video was published at. Then sort the videos at each time frame.
       // Limit of displaying videos is 2 weeks.
       _.forEach(['second', 'minute', 'hour', 'day', 'week'], function(time) {
         timeFrame[time] = _.filter(videos, function(video) {
