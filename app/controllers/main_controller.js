@@ -76,6 +76,10 @@ module.exports = {
 
   privacy: function(req, res) {
     res.render('privacy', { title: 'Privacy Policy' });
+  },
+
+  terms: function(req, res) {
+    res.render('terms', { title: 'Terms and Conditions' });
   }
 
 };

@@ -19,6 +19,9 @@ router.route('/about')
 router.route('/privacy')
   .get(mainController.privacy);
 
+router.route('/terms')
+  .get(mainController.terms);
+
 router.route('/signup')
   .get(userController.signup.get)
   .post(userController.signup.post);

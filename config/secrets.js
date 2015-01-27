@@ -21,6 +21,7 @@ module.exports = {
                   'api',
                   'user',
                   'channel',
-                  'privacy' ]
+                  'privacy',
+                  'terms' ]
 
 };
