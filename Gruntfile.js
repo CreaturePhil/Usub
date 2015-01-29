@@ -19,8 +19,8 @@ module.exports = function(grunt) {
             'public/bower_components/react/react.min.js',
             'public/js/instantclick-start.js'],
           'public/assets/js/scripts.js': [
-            'public/js/build/subscription.js',
             'public/js/settings.js', 
+            'public/js/build/subscription.js',
             'public/js/search.js']
         }
       },
