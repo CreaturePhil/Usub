@@ -3,7 +3,7 @@
 Grid-like Youtube Subscription Feed.
 
 ## Features
-- Display your YouTube subscription feed as a grid for easier visibility
+- Display your YouTube subscription feed as a grid for easier visibility.
 - Effortlessly add or remove your Youtube channel subscriptions.
 - Blazing fast - can scale up to hundreds and hundreds of subscriptions.
 - Never miss new videos from your Youtube Subscriptions ever again!
