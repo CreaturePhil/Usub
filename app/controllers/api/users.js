@@ -12,7 +12,7 @@ module.exports = {
     User.find({}, function(err, users) {
       if (err) return next(err);
       async.map(users, function(userModel, cb) {
-        user = userModel.toObject();
+        var user = userModel.toObject();
         user._id = userModel.getHash();
         user.subscriptions.sort(function(a, b) {
           return b.toLowerCase() < a.toLowerCase();
@@ -29,7 +29,7 @@ module.exports = {
   show: function(req, res, next) {
     User.findById(hashids.decodeHex(req.params.id), function(err, userModel) {
       if (err) return next(err);
-      user = userModel.toObject();
+      var user = userModel.toObject();
       user._id = userModel.getHash();
       remove(user, 'email', 'password', '__v', 'resetPasswordToken', 'resetPasswordExpires', 'tokens');
       res.json(user);
