@@ -45,6 +45,13 @@ router.route('/settings/account')
   .get(login_required, userController.account.get)
   .post(login_required, userController.account.post);
 
+router.route('/settings/videos')
+  .get(login_required, userController.videos.get);
+
+router.route('/settings/account')
+  .get(login_required, userController.account.get)
+  .post(login_required, userController.account.post);
+
 router.route('/settings/password')
   .get(login_required, userController.updatePassword.get)
   .post(login_required, userController.updatePassword.post);

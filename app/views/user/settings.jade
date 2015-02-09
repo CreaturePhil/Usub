@@ -10,6 +10,9 @@ block content
         li(class=title==='Account'?'active':undefined)
           a(href="/settings/account") Account
             span.fa.fa-arrow-right.pull-right
+        li(class=title==='Videos'?'active':undefined)
+          a(href="/settings/videos") Videos
+            span.fa.fa-arrow-right.pull-right
         li(class=title==='Password'?'active':undefined)
           a(href="/settings/password") Password
             span.fa.fa-arrow-right.pull-right
@@ -68,3 +71,24 @@ block content
             input.form-control(type="password" name="confirmPassword" required)
           .form-group
             button.btn.btn-primary(type="submit") Save Changes
+      if title === 'Videos'
+        p The higher the video limit, the more videos you can see in your feed but it takes longer to render your feed. The lower the video limit, there will be less videos you can see in your feed but it will render your feed faster. Your subscription's video limit defaults to 2 weeks.
+        form(role="form" method="post")
+          input(type="hidden" name="_csrf" value=_csrf)
+          .form-group
+            select.form-control.input-lg(name="limit" required)
+              option 2 weeks
+              option 1 day
+              option 2 days
+              option 3 days
+              option 4 days
+              option 5 days
+              option 6 days
+              option 1 week
+              option 3 weeks
+              option 1 month
+              option 2 months
+              option 3 months
+              option 1 year
+          .form-group
+            button.btn.btn-lg.btn-primary.center-block(type="submit") Save Changes

@@ -276,6 +276,15 @@ module.exports = {
     }
   },
 
+  videos: {
+    get: function(req, res) {
+      res.render('user/settings', {
+        title: 'Videos',
+        description: 'Modify your subscription\'s video limit'
+      });
+    }  
+  },
+
   updatePassword: {
     get: function(req, res) {
       res.render('user/settings', {
