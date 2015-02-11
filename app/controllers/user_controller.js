@@ -286,7 +286,21 @@ module.exports = {
     post: function(req, res, next) {
       User.findById(req.user.id, function(err, user) {
         if (err) return next(err);
-        user.videolimit = req.body.videolimit;
+
+        var videoLimit = ['2', 'weeks'];
+        var timeFrame = { 'second': [], 'minute': [], 'hour': [], 'day': [], 'week': [], 'month': [], 'year': [] };
+        var times = Object.keys(timeFrame);
+
+        if (req.body.videolimit) videoLimit = req.body.videolimit.split(' ');
+
+        var time = videoLimit[1].indexOf('s') >= 0 ? videoLimit[1].slice(0, -1) : videoLimit[1];
+
+        times = times.slice(0, times.indexOf(time) + 1);
+
+        user.videolimit.times = times;
+        user.videolimit.time = time;
+        user.videolimit.amount = Number(videoLimit[0]);
+        user.videolimit.limit = req.body.videolimit;
 
         user.save(function(err) {
           if (err) return next(err);

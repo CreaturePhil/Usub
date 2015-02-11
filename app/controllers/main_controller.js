@@ -28,21 +28,15 @@ module.exports = {
     }, function(err) {
       if (err) return next(err);
 
-      var videoLimit = ['2', 'weeks'];
       var timeFrame = { 'second': [], 'minute': [], 'hour': [], 'day': [], 'week': [], 'month': [], 'year': [] };
-      var times = Object.keys(timeFrame);
-
-      if (req.user.videolimit) videoLimit = req.user.videolimit.split(' ');
-
-      times = Number(videoLimit[0]) > 1 ? times.slice(0, times.indexOf(videoLimit[1].slice(0, -1)) + 1) 
-                                       : times.slice(0, times.indexOf(videoLimit[1]));
+      var vl = req.user.videolimit;
 
       // Find at what time frame each video was published at. Then sort the videos at each time frame.
       // Limit of displaying videos is 2 weeks.
-      _.forEach(times, function(time) {
+      _.forEach(vl.times, function(time) {
         timeFrame[time] = _.filter(videos, function(video) {
-          if (time === videoLimit[1].slice(0, -1)) {
-            return video.publishedAt.indexOf(videoLimit[1].slice(0, -1)) >= 0 && Number(video.publishedAt.match(re)[0]) <= Number(videoLimit[0]);
+          if (time === vl.time) {
+            return video.publishedAt.indexOf(vl.time) >= 0 && Number(video.publishedAt.match(re)[0]) <= vl.amount;
           }
           return video.publishedAt.indexOf(time) >= 0;
         }).sort(function(a, b) {
@@ -50,7 +44,7 @@ module.exports = {
         });
       });
 
-      videos = timeFrame.second.concat(timeFrame.minute, timeFrame.hour, timeFrame.day, timeFrame.week);
+      videos = timeFrame.second.concat(timeFrame.minute, timeFrame.hour, timeFrame.day, timeFrame.week, timeFrame.month, timeFrame.year);
 
       res.render('dashboard', { videos: videos });
     });
