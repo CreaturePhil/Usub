@@ -76,19 +76,19 @@ block content
         form(role="form" method="post")
           input(type="hidden" name="_csrf" value=_csrf)
           .form-group
-            select.form-control.input-lg(name="limit" required)
-              option 2 weeks
-              option 1 day
-              option 2 days
-              option 3 days
-              option 4 days
-              option 5 days
-              option 6 days
-              option 1 week
-              option 3 weeks
-              option 1 month
-              option 2 months
-              option 3 months
-              option 1 year
+            select.form-control.input-lg(name="videolimit" required)
+              option(selected=user.videolimit==='2 weeks'?"selected":false) 2 weeks
+              option(selected=user.videolimit==='1 day'?"selected":false) 1 day
+              option(selected=user.videolimit==='2 days'?"selected":false) 2 days
+              option(selected=user.videolimit==='3 days'?"selected":false) 3 days
+              option(selected=user.videolimit==='4 days'?"selected":false) 4 days
+              option(selected=user.videolimit==='5 days'?"selected":false) 5 days
+              option(selected=user.videolimit==='6 days'?"selected":false) 6 days
+              option(selected=user.videolimit==='1 week'?"selected":false) 1 week
+              option(selected=user.videolimit==='3 week'?"selected":false) 3 weeks
+              option(selected=user.videolimit==='1 month'?"selected":false) 1 month
+              option(selected=user.videolimit==='2 months'?"selected":false) 2 months
+              option(selected=user.videolimit==='3 months'?"selected":false) 3 months
+              option(selected=user.videolimit==='1 year'?"selected":false) 1 year
           .form-group
             button.btn.btn-lg.btn-primary.center-block(type="submit") Save Changes

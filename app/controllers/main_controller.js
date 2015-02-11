@@ -28,14 +28,21 @@ module.exports = {
     }, function(err) {
       if (err) return next(err);
 
-      var timeFrame = { 'second': [], 'minute': [], 'hour': [], 'day': [], 'week': [] };
+      var videoLimit = ['2', 'weeks'];
+      var timeFrame = { 'second': [], 'minute': [], 'hour': [], 'day': [], 'week': [], 'month': [], 'year': [] };
+      var times = Object.keys(timeFrame);
+
+      if (req.user.videolimit) videoLimit = req.user.videolimit.split(' ');
+
+      times = Number(videoLimit[0]) > 1 ? times.slice(0, times.indexOf(videoLimit[1].slice(0, -1)) + 1) 
+                                       : times.slice(0, times.indexOf(videoLimit[1]));
 
       // Find at what time frame each video was published at. Then sort the videos at each time frame.
       // Limit of displaying videos is 2 weeks.
-      _.forEach(['second', 'minute', 'hour', 'day', 'week'], function(time) {
+      _.forEach(times, function(time) {
         timeFrame[time] = _.filter(videos, function(video) {
-          if (time === 'week') {
-            return video.publishedAt.indexOf('week') >= 0 && Number(video.publishedAt.match(re)[0]) <= 2;
+          if (time === videoLimit[1].slice(0, -1)) {
+            return video.publishedAt.indexOf(videoLimit[1].slice(0, -1)) >= 0 && Number(video.publishedAt.match(re)[0]) <= Number(videoLimit[0]);
           }
           return video.publishedAt.indexOf(time) >= 0;
         }).sort(function(a, b) {

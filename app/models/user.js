@@ -14,6 +14,7 @@ var userSchema = new mongoose.Schema({
   password: String,
   rank: { type: String, default: 'User' },
   subscriptions: Array,
+  videolimit: { type: String, default: '2 week' },
 
   profile: {
     avatar: { type: String, default: '' },

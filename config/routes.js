@@ -46,7 +46,8 @@ router.route('/settings/account')
   .post(login_required, userController.account.post);
 
 router.route('/settings/videos')
-  .get(login_required, userController.videos.get);
+  .get(login_required, userController.videos.get)
+  .post(login_required, userController.videos.post);
 
 router.route('/settings/account')
   .get(login_required, userController.account.get)

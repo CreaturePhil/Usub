@@ -282,7 +282,19 @@ module.exports = {
         title: 'Videos',
         description: 'Modify your subscription\'s video limit'
       });
-    }  
+    },
+    post: function(req, res, next) {
+      User.findById(req.user.id, function(err, user) {
+        if (err) return next(err);
+        user.videolimit = req.body.videolimit;
+
+        user.save(function(err) {
+          if (err) return next(err);
+          req.flash('success', { msg: 'Video limit updated.' });
+          res.redirect('/settings/videos');
+        });
+      });
+    }
   },
 
   updatePassword: {
