@@ -1,6 +1,6 @@
 # Usub [![Build Status](https://travis-ci.org/CreaturePhil/Usub.svg)](https://travis-ci.org/CreaturePhil/Usub) [![Dependency Status](https://david-dm.org/creaturephil/Usub.svg)](https://david-dm.org/creaturephil/Usub) [![devDependency Status](https://david-dm.org/creaturephil/Usub/dev-status.svg)](https://david-dm.org/creaturephil/Usub#info=devDependencies)
 
-Grid-like Youtube Subscription Feed.
+YouTube subscription feed that displays your subscriptions in a grid. Usub is more reliable than YouTube subscription's box because Usub doesn't filter subscriptions and works all the time so you will never miss your favorite Youtuber's videos!
 
 ## Features
 - Display your YouTube subscription feed as a grid for easier visibility.
