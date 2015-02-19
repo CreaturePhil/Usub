@@ -12,7 +12,6 @@ var userSchema = new mongoose.Schema({
   username: { type: String, unique: true },
   email: { type: String, unique: true, lowercase: true },
   password: String,
-  rank: { type: String, default: 'User' },
   subscriptions: Array,
   videolimit: {
     times: { type: Array, default: ['second', 'minute', 'hour', 'day', 'week'] },
