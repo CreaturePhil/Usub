@@ -20,6 +20,7 @@
     "instantclick": "~3.1.0",
     "bootstrap-notify": "~0.2.0",
     "bootswatch": "~3.3.1",
-    "react": "~0.12.2"
+    "react": "~0.12.2",
+    "bootstrap3-typeahead": "~3.1.0"
   }
 }

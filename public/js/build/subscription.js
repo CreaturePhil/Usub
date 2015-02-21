@@ -29,7 +29,7 @@ var SubscriptionBox = React.createClass({displayName: "SubscriptionBox",
         return 0;
       });
       this.setState({data: data.subscriptions}); 
-    }.bind(this))
+    }.bind(this));
   },
   componentDidMount: function() {
     this.setCSRFToken($('#csrf').attr('content'));
@@ -83,6 +83,8 @@ var SubscriptionForm = React.createClass({displayName: "SubscriptionForm",
                type: "text", 
                placeholder: 'Add a subscription (Total Subscriptions: ' + this.props.data.length + ')', 
                ref: "name", 
+               autocomplete: "off", 
+               "data-provide": "typeahead", 
                required: true}), 
         React.createElement("button", {type: "submit", className: "btn btn-primary"}, "Add")
       )

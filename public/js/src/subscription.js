@@ -83,6 +83,8 @@ var SubscriptionForm = React.createClass({
                type="text"
                placeholder={'Add a subscription (Total Subscriptions: ' + this.props.data.length + ')'}
                ref="name"
+               autocomplete="off"
+               data-provide="typeahead"
                required />
         <button type="submit" className="btn btn-primary">Add</button>
       </div>

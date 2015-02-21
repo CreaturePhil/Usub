@@ -21,7 +21,8 @@ module.exports = function(grunt) {
           'public/assets/js/scripts.js': [
             'public/js/settings.js', 
             'public/js/build/subscription.js',
-            'public/js/search.js']
+            'public/js/search.js',
+            'public/js/autocomplete-typeahead.js']
         }
       },
       css: {
