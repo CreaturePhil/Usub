@@ -45,6 +45,10 @@ router.route('/settings/account')
   .get(login_required, userController.account.get)
   .post(login_required, userController.account.post);
 
+router.route('/settings/sync')
+  .get(login_required, userController.sync.get)
+  .post(login_required, userController.sync.post);
+
 router.route('/settings/videos')
   .get(login_required, userController.videos.get)
   .post(login_required, userController.videos.post);

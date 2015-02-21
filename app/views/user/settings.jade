@@ -10,6 +10,9 @@ block content
         li(class=title==='Account'?'active':undefined)
           a(href="/settings/account") Account
             span.fa.fa-arrow-right.pull-right
+        li(class=title==='Sync'?'active':undefined)
+          a(href="/settings/sync") Sync
+            span.fa.fa-arrow-right.pull-right
         li(class=title==='Videos'?'active':undefined)
           a(href="/settings/videos") Videos
             span.fa.fa-arrow-right.pull-right
@@ -92,3 +95,11 @@ block content
               option(selected=user.videolimit.limit==='1 year'?"selected":false) 1 year
           .form-group
             button.btn.btn-lg.btn-primary.center-block(type="submit") Save Changes
+      if title === 'Sync'
+        p Make sure you set your Youtube Subscriptions to public in your YouTube settings.
+        form(role="form" method="post")
+          input(type="hidden" name="_csrf" value=_csrf)
+          .form-group
+            input.form-control(type="text" name="username" placeholder="Youtube Username" required)
+          .form-group
+            button.btn.btn-lg.btn-primary.center-block(type="submit") Sync

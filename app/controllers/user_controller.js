@@ -1,8 +1,10 @@
 var _ = require('lodash');
 var async = require('async');
+var cheerio = require('cheerio');
 var crypto = require('crypto');
 var nodemailer = require('nodemailer');
 var passport = require('passport');
+var request = require('request');
 
 var User = require('../models/user');
 var secrets = require('../../config/secrets');
@@ -271,6 +273,40 @@ module.exports = {
           if (err) return next(err);
           req.flash('success', { msg: 'Profile information updated.' });
           res.redirect('/settings/account');
+        });
+      });
+    }
+  },
+
+  sync: {
+    get: function(req, res) {
+      res.render('user/settings', {
+        title: 'Sync',
+        description: 'Sync your subscriptions with your YouTube Account'
+      });
+    },
+    post: function(req, res, next) {
+      var url = 'https://www.youtube.com/user/' + req.body.username + '/channels?view=56';
+      request(url, function(err, response, body) {
+        if (err || response.statusCode !== 200) {
+          req.flash('errors', { msg: 'Sync fail.' });
+          return res.redirect('/settings/sync');
+        }
+        var $ = cheerio.load(body);
+        var list = $('.channels-content-item').map(function(i, el) {
+          return $(this).find('.yt-uix-tile-link').text().replace(/\s+/g, '');
+        }).get();
+
+        User.findById(req.user.id, function(err, user) {
+          if (err) return next(err);
+
+          user.subscriptions = _.union(user.subscriptions, list);
+
+          user.save(function(err) {
+            if (err) return next(err);
+            req.flash('success', { msg: 'Sync successful.' });
+            res.redirect('/settings/sync');
+          });
         });
       });
     }
