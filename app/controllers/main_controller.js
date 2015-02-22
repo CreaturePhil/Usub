@@ -40,7 +40,9 @@ module.exports = {
           }
           return video.publishedAt.indexOf(time) >= 0;
         }).sort(function(a, b) {
-          return Number(a.publishedAt.match(re)[0]) - Number(b.publishedAt.match(re)[0]);
+          var aPublishedAt = Number(a.publishedAt.match(re));
+          var bPublishedAt = Number(b.publishedAt.match(re));
+          return aPublishedAt && bPublishedAt ? aPublishedAt - bPublishedAt : 0;
         });
       });
 
