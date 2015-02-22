@@ -36,13 +36,11 @@ module.exports = {
       _.forEach(vl.times, function(time) {
         timeFrame[time] = _.filter(videos, function(video) {
           if (time === vl.time) {
-            return video.publishedAt.indexOf(vl.time) >= 0 && Number(video.publishedAt.match(re)[0]) <= vl.amount;
+            return video.publishedAt.indexOf(vl.time) >= 0 && Number(video.publishedAt.match(re)) <= vl.amount;
           }
           return video.publishedAt.indexOf(time) >= 0;
         }).sort(function(a, b) {
-          var aPublishedAt = Number(a.publishedAt.match(re));
-          var bPublishedAt = Number(b.publishedAt.match(re));
-          return aPublishedAt && bPublishedAt ? aPublishedAt - bPublishedAt : 0;
+          return Number(a.publishedAt.match(re)) - Number(b.publishedAt.match(re));
         });
       });
 
