@@ -1,0 +1,11 @@
+# humanstxt.org/
+# The humans responsible & technology colophon
+
+# TEAM
+
+    Philip La -- Full Stack Developer -- @CreaturePhil
+
+# TECHNOLOGY COLOPHON
+
+    CSS3, HTML5
+    BootStrap, Fontawesome, jQuery, InstantClick, Node.js, React
