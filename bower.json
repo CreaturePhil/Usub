@@ -15,7 +15,7 @@
     "tests"
   ],
   "dependencies": {
-    "bootstrap": "~3.3.1",
+    "bootstrap": "~3.3.2",
     "fontawesome": "~4.2.0",
     "instantclick": "~3.1.0",
     "bootstrap-notify": "~0.2.0",
