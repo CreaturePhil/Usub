@@ -355,7 +355,7 @@ module.exports = {
       });
     },
     post: function(req, res, next) {
-      var errors = validators.updatePasswordValidation(req);
+      var errors = validators.resetPasswordValidation(req);
 
       if (errors) {
         req.flash('errors', errors);
