@@ -282,33 +282,57 @@ module.exports = {
     get: function(req, res) {
       res.render('user/settings', {
         title: 'Sync',
-        description: 'Sync your subscriptions with your YouTube Account'
+        description: 'Sync subscriptions with anyone'
       });
     },
     post: function(req, res, next) {
-      var url = 'https://www.youtube.com/user/' + req.body.username + '/channels?view=56';
-      request(url, function(err, response, body) {
-        if (err || response.statusCode !== 200) {
-          req.flash('errors', { msg: 'Sync fail.' });
-          return res.redirect('/settings/sync');
-        }
-        var $ = cheerio.load(body);
-        var list = $('.channels-content-item').map(function(i, el) {
-          return $(this).find('.yt-uix-tile-link').text().replace(/\s+/g, '');
-        }).get();
-
-        User.findById(req.user.id, function(err, user) {
+      var username = req.body.username;
+      
+      if (username.indexOf('@') === 0) {
+        User.find({ username: username.slice(1) }, function(err, targetUser) {
           if (err) return next(err);
-
-          user.subscriptions = _.union(user.subscriptions, list);
-
-          user.save(function(err) {
+          if (targetUser.length === 0) {
+            req.flash('errors', { msg: 'This Usub user does not exist.' });
+            return res.redirect('/settings/sync');
+          }
+          User.findById(req.user.id, function(err, user) {
             if (err) return next(err);
-            req.flash('success', { msg: 'Sync successful.' });
-            res.redirect('/settings/sync');
+
+            user.subscriptions = _.union(user.subscriptions, targetUser[0].subscriptions);
+
+            user.save(function(err) {
+              if (err) return next(err);
+              req.flash('success', { msg: 'Sync successful.' });
+              res.redirect('/settings/sync');
+            });
           });
         });
-      });
+      } else {
+        var url = 'https://www.youtube.com/user/' + username + '/channels?view=56';
+        request(url, function(err, response, body) {
+          if (err || response.statusCode !== 200) {
+            req.flash('errors', { msg: 'Sync fail.' });
+            return res.redirect('/settings/sync');
+          }
+          var $ = cheerio.load(body);
+          var list = $('.channels-content-item').map(function(i, el) {
+            return $(this).find('.yt-uix-tile-link').text().replace(/\s+/g, '');
+          }).get();
+
+          User.findById(req.user.id, function(err, user) {
+            if (err) return next(err);
+
+            user.subscriptions = _.union(user.subscriptions, list);
+
+            user.save(function(err) {
+              if (err) return next(err);
+              req.flash('success', { msg: 'Sync successful.' });
+              res.redirect('/settings/sync');
+            });
+          });
+        });
+      }
+
     }
   },
 
