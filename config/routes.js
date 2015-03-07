@@ -1,11 +1,14 @@
 var express = require('express');
 var passport = require('passport');
+var path = require('path');
 
 var resource = require('../lib/resource');
 
-var mainController = require('../app/controllers/main_controller');
-var userController = require('../app/controllers/user_controller');
-var apiUsersController = require('../app/controllers/api/users');
+var controllers = '../app/controllers';
+var mainController = require(path.join(controllers, 'main_controller'));
+var userController = require(path.join(controllers, 'user_controller'));
+var apiUsersController = require(path.join(controllers, 'api/users'));
+
 var login_required = require('./passport').isAuthenticated;
 
 var router = express.Router();
