@@ -15,6 +15,7 @@ module.exports = {
                   'signup',
                   'login',
                   'logout',
+                  'history',
                   'settings',
                   'auth',
                   'subscriptions',
