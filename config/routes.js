@@ -7,7 +7,6 @@ var resource = require('../lib/resource');
 var controllers = '../app/controllers';
 var mainController = require(path.join(controllers, 'main_controller'));
 var userController = require(path.join(controllers, 'user_controller'));
-var historyController = require(path.join(controllers, 'history_controller'));
 var apiUsersController = require(path.join(controllers, 'api/users'));
 
 var login_required = require('./passport').isAuthenticated;
@@ -71,9 +70,6 @@ router.route('/settings/delete')
 
 router.route('/subscriptions')
   .get(login_required, userController.subscriptions);
-
-router.route('/history')
-  .get(login_required, historyController.index);
 
 resource('/api/users', apiUsersController, router);
 
