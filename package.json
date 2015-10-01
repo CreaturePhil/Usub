@@ -55,7 +55,7 @@
     "supertest": "^1.1.0"
   },
   "engines": {
-    "node": "0.10.x"
+    "node": "> 0.10.1"
   },
   "license": "MIT"
 }
