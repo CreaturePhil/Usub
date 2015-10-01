@@ -29,6 +29,8 @@ module.exports = {
       if (err) return next(err);
 
       var timeFrame = { 'second': [], 'minute': [], 'hour': [], 'day': [], 'week': [], 'month': [], 'year': [] };
+
+      // Default video limit is 1 week
       var vl = req.user.videolimit;
 
       // Find at what time frame each video was published at. Then sort the videos at each time frame.

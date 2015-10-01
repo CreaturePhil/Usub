@@ -16,7 +16,7 @@ var userSchema = new mongoose.Schema({
   videolimit: {
     times: { type: Array, default: ['second', 'minute', 'hour', 'day', 'week'] },
     time: { type: String, default: 'week' },
-    amount: { type: Number, default: 2 },
+    amount: { type: Number, default: 1 },
     limit: { type: String, default: '2 weeks' }
   },
 
