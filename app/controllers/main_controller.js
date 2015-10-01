@@ -32,7 +32,6 @@ module.exports = {
       var vl = req.user.videolimit;
 
       // Find at what time frame each video was published at. Then sort the videos at each time frame.
-      // Limit of displaying videos is 2 weeks.
       _.forEach(vl.times, function(time) {
         timeFrame[time] = _.filter(videos, function(video) {
           if (time === vl.time) {
