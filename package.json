@@ -5,7 +5,9 @@
   "scripts": {
     "start": "node ./bin/www",
     "test": "grunt test && mocha --reporter=spec --timeout=10000",
-    "coverage": "istanbul cover node_modules/mocha/bin/_mocha -- -R spec --timeout=10000"
+    "coverage": "istanbul cover node_modules/mocha/bin/_mocha -- -R spec --timeout=10000",
+    "bower": "bower install",
+    "build": "grunt"
   },
   "repository": {
     "type": "git",
@@ -40,8 +42,8 @@
     "stylus": "^0.50.0"
   },
   "devDependencies": {
+    "bower": "^1.5.3",
     "chai": "^2.1.1",
-    "grunt": "^0.4.5",
     "grunt-cli": "^0.1.13",
     "grunt-contrib-concat": "^0.5.1",
     "grunt-contrib-cssmin": "^0.12.2",

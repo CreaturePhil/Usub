@@ -16,8 +16,8 @@ your favorite Youtuber's videos!
 ```bash
 $ git clone https://github.com/CreaturePhil/Usub.git
 $ cd Usub
-$ npm install && bower install
-$ grunt && npm start
+$ npm install && npm run bower
+$ npm run build && npm start
 ```
 Don't forget before `npm start`, make sure to start up MongoDB with the `mongod` command in another terminal.
 
