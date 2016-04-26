@@ -17,7 +17,7 @@ module.exports = {
     async.each(req.user.subscriptions, function(user, callback) {
       var link = yt_channel_startLink + user + yt_channel_endLink;
       request(link, function(err, response, body) {
-        if (err || response.statusCode !== 200) return callback(); 
+        if (err || response.statusCode !== 200) return callback();
         var $ = cheerio.load(body);
         var content = $('.channels-content-item').map(function(i, el) {
           return getContent.call(this, $, user);
@@ -95,8 +95,15 @@ module.exports = {
  */
 function getContent($, user) {
   var $info = $(this).find('.yt-lockup-meta-info').find('li');
+  var image = $(this).find('img').attr('src');
+  var imageUrl = '';
+  if (image.charAt(0) === '/') {
+    imageUrl = 'http:' + image;
+  } else {
+    imageUrl = image.split('?')[0].replace(/\/hq/, '/mq');
+  }
   return {
-    img: 'https:' + $(this).find('img').attr('src'),
+    img: imageUrl,
     link: 'https://www.youtube.com' + $(this).find('a').attr('href'),
     time: $(this).find('.video-time').text(),
     title: $(this).find('.yt-lockup-content a').text(),
