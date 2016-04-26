@@ -1,3 +1,5 @@
+var React = require('react');
+var render = require('react-dom').render;
 var $spinner = $('#spinner');
 var subscriptionsEl = document.getElementById('subscriptions');
 var id = subscriptionsEl ? subscriptionsEl.getAttribute('data-id') : '';
@@ -16,9 +18,9 @@ var SubscriptionBox = React.createClass({
   loadSubscriptionsFromServer: function() {
     $.ajax(this.props.url, {
       dataType: 'json',
-      complete: function() { 
+      complete: function() {
         if ($spinner.length >= 0) {
-          $spinner.hide(); 
+          $spinner.hide();
         }
       },
     })
@@ -28,7 +30,7 @@ var SubscriptionBox = React.createClass({
         if (a.toLowerCase() > b.toLowerCase()) return 1;
         return 0;
       });
-      this.setState({data: data.subscriptions}); 
+      this.setState({data: data.subscriptions});
     }.bind(this));
   },
   componentDidMount: function() {
@@ -43,7 +45,7 @@ var SubscriptionBox = React.createClass({
         this.loadSubscriptionsFromServer();
       }.bind(this))
       .error(function(xhr, status, err) {
-        console.error(this.props.url, status, err.toString()); 
+        console.error(this.props.url, status, err.toString());
       });
   },
   handleSubscriptionSubmit: function(sub, getDOMNode) {
@@ -72,7 +74,7 @@ var SubscriptionBox = React.createClass({
 
 var SubscriptionForm = React.createClass({
   handleSubmit: function(e) {
-    e.preventDefault(); 
+    e.preventDefault();
     this.props.onSubscriptionSubmit(this.refs.name.getDOMNode().value.trim(),
                                     this.refs.name.getDOMNode);
   },
@@ -97,9 +99,9 @@ var SubscriptionList = React.createClass({
     this.props.onSubscriptionRemove(sub);
   },
   render: function() {
-    var subNodes = this.props.data.map(function(sub) { 
+    var subNodes = this.props.data.map(function(sub, index) {
       return (
-        <Subscription name={sub} onSubscriptionRemove={this.passSubscriptionRemove}>
+        <Subscription key={sub + index} name={sub} onSubscriptionRemove={this.passSubscriptionRemove}>
         </Subscription>
       );
     }.bind(this));
@@ -120,14 +122,14 @@ var Subscription = React.createClass({
   render: function() {
     return (
       <tr className="subscription">
-        <td><a href={'/user/' + this.props.name}>{this.props.name}</a></td>     
+        <td><a href={'/user/' + this.props.name}>{this.props.name}</a></td>
         <td><span className="glyphicon glyphicon-remove" onClick={this.handleClick}></span></td>
       </tr>
     );
   }
 });
 
-React.render(
+render(
   <SubscriptionBox url={'/api/users/' + id} />,
   subscriptionsEl
 );

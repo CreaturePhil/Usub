@@ -12,16 +12,14 @@ module.exports = function(grunt) {
     concat: {
       js: {
         files: {
-          'public/assets/js/main.js': [ 
+          'public/assets/js/main.js': [
             'public/bower_components/bootstrap/dist/js/bootstrap.js',
             'public/bower_components/bootstrap-notify/js/bootstrap-notify.js',
             'public/bower_components/instantclick/instantclick.js',
-            'public/bower_components/react/react.min.js',
             'public/bower_components/bootstrap3-typeahead/bootstrap3-typeahead.js',
             'public/js/instantclick-start.js'],
           'public/assets/js/scripts.js': [
-            'public/js/settings.js', 
-            'public/js/build/subscription.js',
+            'public/js/settings.js',
             'public/js/search.js',
             'public/js/autocomplete-typeahead.js']
         }
