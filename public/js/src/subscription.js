@@ -48,7 +48,7 @@ var SubscriptionBox = React.createClass({
         console.error(this.props.url, status, err.toString());
       });
   },
-  handleSubscriptionSubmit: function(sub, getDOMNode) {
+  handleSubscriptionSubmit: function(sub, node) {
     var subs = this.state.data;
     if (subs.indexOf(sub.toLowerCase()) >= 0) {
       return $('.top-right').notify({
@@ -56,7 +56,7 @@ var SubscriptionBox = React.createClass({
         message: { text: 'You already added ' + sub + '.'  }
       }).show();
     }
-    getDOMNode().value = '';
+    node.value = '';
     this.handleSubscriptionEvent('addSub', sub);
   },
   handleSubscriptionRemove: function(sub) {
@@ -75,8 +75,8 @@ var SubscriptionBox = React.createClass({
 var SubscriptionForm = React.createClass({
   handleSubmit: function(e) {
     e.preventDefault();
-    this.props.onSubscriptionSubmit(this.refs.name.getDOMNode().value.trim(),
-                                    this.refs.name.getDOMNode);
+    this.props.onSubscriptionSubmit(this.refs.name.value.trim(),
+                                    this.refs.name);
   },
   render: function() {
     return (<form className="subscriptionForm" onSubmit={this.handleSubmit}>
